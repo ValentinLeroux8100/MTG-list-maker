@@ -1,0 +1,152 @@
+@font-face {
+    font-family: "Beleren";
+    src: local("Beleren"),
+      url("./Font/beleren/Beleren2016-Bold.ttf") format("TrueType");
+  }
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main{
+    height: 100vh;
+    width: fit-content;
+    
+    display: flex;
+    
+    background-color: darkgray;
+    
+    font-family: 'Beleren';
+}
+
+section{
+    height: 100vh;
+    width: fit-content;
+
+    display: flex;
+}
+
+.panel-header{
+    height : 4rem;
+
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+
+    background-color: #444;
+
+    padding: 0 10px;
+    padding-top: 0.2em;
+
+    font-size: 1.8em;
+    color: white;
+}
+
+.panel{
+    width: 400px;
+    height: 100vh;
+
+    background-color: #222;
+
+    border: solid black 1px;
+
+    text-align: right;
+}
+
+
+@media screen and (max-width: 400px) {
+    .panel{
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
+.box-selector{
+    width: 40px;
+    height: 40px;
+
+    background-color: black;
+    
+    border-radius: 5px;
+}
+
+.card-top{
+    height: 29px; /*31px*/
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 15px / 35px;
+
+    background-color: #AECEBC;
+
+    color: black;
+    font-size: 27px;
+    text-align: center;
+    
+    padding-left: 2%;
+    padding-top: 2px;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.card-mid{
+    height: 31px;
+
+    background: linear-gradient(#d0eddc, #92ad9e);
+    
+    border-radius: 15px / 35px;
+    
+    padding: 2px;
+    
+}
+
+.card-back{
+    height: 33px;
+    width: 100%;
+
+    background-color: #027C49;
+    
+    border-radius: 15px / 30px;
+    
+    padding: 4px 5px 6px;
+    
+    box-shadow: 
+        inset 0px -1px 0px rgba(255, 255, 255, 0.25),
+        inset 0px 1px 0px rgba(255, 255, 255, 0.15);
+    
+    margin: 3px 3px 3px -3px;
+    
+    
+    border: solid black 1px;
+}
+
+.card{
+    width: 100%;
+
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+}
+
+.card-number{
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-number-text{
+    position: absolute;
+
+    color: white;
+    
+    font-size: 25px;
+    
+    top: 55%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
