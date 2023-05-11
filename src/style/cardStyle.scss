@@ -1,0 +1,216 @@
+@use 'cardColor.scss';
+
+@mixin center-flex{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin card-layer($top, $mid, $back){
+    .card-back{
+        background: $back;
+    }
+
+    .card-mid{
+        background: $mid;
+    }
+
+    .card-top{
+        background-color: $top;
+    }
+}
+
+
+.card-top{
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 15px / 35px;
+
+    background-color: cardColor.$uncolorLight;
+
+    color: black;
+    font-size: 27px;
+    
+    padding: {
+        left: 2%;
+        top: 2px;
+    };
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.card-mid{
+    height: 31px;
+
+    background: cardColor.$uncolorGradient;
+    
+    border-radius: 15px / 35px;
+    
+    padding: 2px;
+}
+
+.card-back{
+    height: 33px;
+    width: 100%;
+
+    background-color: cardColor.$uncolor;
+    
+    border-radius: 15px / 30px;
+    
+    padding: 4px 5px 6px;
+    
+    box-shadow: 
+        inset 0px -1px 0px rgba(255, 255, 255, 0.25),
+        inset 0px 1px 0px rgba(255, 255, 255, 0.15);
+    
+    margin: 3px 3px 3px -3px;
+    
+    border: solid black 1px;
+}
+
+.card{
+    width: 100%;
+    @include center-flex;
+
+    &.red{ 
+        @include card-layer(cardColor.$redLight, cardColor.$redGradient, cardColor.$red);
+        &.green{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn, cardColor.$red, cardColor.$green));
+            
+            &.white, &.black, &.blue {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }
+        }
+        &.white{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn, cardColor.$red, cardColor.$white));
+
+            &.blue, &.black, &.green {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }
+        }
+    }
+    &.green{ 
+        @include card-layer(cardColor.$greenLight, cardColor.$greenGradient, cardColor.$green);
+        &.blue{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn, cardColor.$green, cardColor.$blue));
+            
+            &.white, &.black, &.red {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }
+        }
+
+        &.white{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn, cardColor.$green, cardColor.$white));
+
+            &.blue, &.black, &.red {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }    
+        }
+    }
+
+    &.white{ 
+        @include card-layer(cardColor.$whiteLight, cardColor.$whiteGradient, cardColor.$white); 
+        &.black{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn,cardColor.$white, cardColor.$black));
+                
+            &.blue, &.green, &.red {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }    
+        }
+
+        &.blue{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn,cardColor.$white, cardColor.$blue));
+            
+            &.black, &.green, &.red {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }    
+        }
+
+    }
+
+    &.black{ 
+        @include card-layer(cardColor.$blackLight, cardColor.$blackGradient, cardColor.$black); 
+        &.red{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn, cardColor.$black, cardColor.$red));
+                    
+            &.white, &.green, &.blue {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }  
+        }
+        &.green{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn, cardColor.$black, cardColor.$green));    
+            &.white, &.red, &.blue {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }  
+        }
+    }
+
+    &.blue{ 
+        @include card-layer(cardColor.$blueLight, cardColor.$blueGradient, cardColor.$blue); 
+        &.red{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn,cardColor.$blue, cardColor.$red));
+            &.white, &.black, &.green {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }  
+        }
+        &.black{ 
+            @include card-layer(
+                cardColor.$goldLight, 
+                cardColor.$goldGradient, 
+                linear-gradient(0.25turn,cardColor.$blue, cardColor.$black));
+            &.white, &.red, &.green {
+                @include card-layer(cardColor.$goldLight, cardColor.$goldGradient, cardColor.$gold);
+            }  
+        }
+    }
+
+    &.unco{ @include card-layer(cardColor.$uncolorLight, cardColor.$uncolorGradient, cardColor.$uncolor) }    
+}
+
+.card-number{
+    position: relative;
+    @include center-flex;
+}
+
+.card-number-text{
+    position: absolute;
+
+    color: white;
+    
+    font-size: 25px;
+    
+    top: 55%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}

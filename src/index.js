@@ -6,19 +6,16 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import PanelContainer from './PanelContainer';
 import Data from './Data';
 
-import './style.scss'
-import { Logger } from 'sass';
-
+import './style/style.scss'
+import './style/cardStyle.scss'
 
 function App(){
     const [data, setData] = useState(Data)
 
     const onDragEnd = result =>{
-    
         const {destination, source, draggableId, type} = result;
-        console.log(destination);
-        console.log(source);
-        if(!destination){ return } 
+
+        if(!destination){ console.log("ping"); return } 
 
         if(destination.droppableId === source.droppableId 
         && destination.index === source.index) {return}
@@ -26,6 +23,8 @@ function App(){
         if(type == 'column'){
             const newOrder = Array.from(data.panelOrder)
     
+            if(newOrder[source.index] != draggableId) return;
+
             newOrder.splice(source.index, 1)
             newOrder.splice(destination.index, 0, draggableId)
             
@@ -36,10 +35,12 @@ function App(){
         if(type == 'card'){
             if(source.droppableId === destination.droppableId){
                 const newCardOrder = Array.from(data.panel[source.droppableId].cardsIds);
-        
+
+                if(newCardOrder[source.index] != draggableId) return;
+
                 newCardOrder.splice(source.index, 1)
                 newCardOrder.splice(destination.index, 0, draggableId)
-                
+
                 setData((prevData) => ({
                     ...prevData, 
                     panel: {
@@ -56,6 +57,8 @@ function App(){
             const start = Array.from(data.panel[source.droppableId].cardsIds);
             const finish = Array.from(data.panel[destination.droppableId].cardsIds);
             
+            if(start[source.index] != draggableId) return;
+
             start.splice(source.index, 1)
             finish.splice(destination.index, 0, draggableId)
             

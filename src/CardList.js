@@ -9,6 +9,7 @@ function CardList({id, cardsIds, cardsMap}) {
       <div 
         {...provider.droppableProps} 
         ref={provider.innerRef} 
+        className='card-list'
       >
         
         {cardsIds.map((id,index) => {

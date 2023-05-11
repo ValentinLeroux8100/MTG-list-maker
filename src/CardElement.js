@@ -6,7 +6,12 @@ function CardElement({color, id, index, children}) {
   return (  
     <Draggable draggableId={id} index={index}>
     {provider => (
-      <div {... provider.draggableProps} ref = {provider.innerRef} {... provider.dragHandleProps} className='card'>
+      <div 
+        {... provider.draggableProps} 
+        ref = {provider.innerRef} 
+        {... provider.dragHandleProps} 
+        className={'card ' + color.join(' ')}
+      >
           <div className='card-number'>
               <img src={cardNumberBackground} alt="cardNumberBackground" className='card-number-background'/>
               <div className='card-number-text'>3x</div>
