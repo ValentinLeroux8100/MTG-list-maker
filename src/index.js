@@ -1,33 +1,79 @@
 import {React, useState} from 'react';
-import PanelContainer from './PanelContainer';
 import ReactDOM from 'react-dom/client';
+
 import { DragDropContext } from 'react-beautiful-dnd'
+
+import PanelContainer from './PanelContainer';
+import Data from './Data';
+
 import './style.scss'
+import { Logger } from 'sass';
 
 
 function App(){
-    const [data, setData] = useState({ 
-        "panel" : {
-            "panel-1" : {id: "panel-1", text: "text 1"}, 
-            "panel-2" : {id: "panel-2", text: "text 2"},
-        },
-        "panelOrder" : ["panel-2", "panel-1"]
-    })
+    const [data, setData] = useState(Data)
 
     const onDragEnd = result =>{
-        const {destination, source, draggableId} = result;
-
+    
+        const {destination, source, draggableId, type} = result;
+        console.log(destination);
+        console.log(source);
         if(!destination){ return } 
 
         if(destination.droppableId === source.droppableId 
         && destination.index === source.index) {return}
-
-        const newOrder = Array.from(data.panelOrder)
-
-        newOrder.splice(source.index, 1)
-        newOrder.splice(destination.index, 0, draggableId)
+            
+        if(type == 'column'){
+            const newOrder = Array.from(data.panelOrder)
+    
+            newOrder.splice(source.index, 1)
+            newOrder.splice(destination.index, 0, draggableId)
+            
+            setData((prevData) => ({...prevData, panelOrder: newOrder}))
+            return
+        }
+ 
+        if(type == 'card'){
+            if(source.droppableId === destination.droppableId){
+                const newCardOrder = Array.from(data.panel[source.droppableId].cardsIds);
         
-        setData((prevData) => ({...prevData, panelOrder: newOrder}))
+                newCardOrder.splice(source.index, 1)
+                newCardOrder.splice(destination.index, 0, draggableId)
+                
+                setData((prevData) => ({
+                    ...prevData, 
+                    panel: {
+                        ...prevData.panel,
+                        [source.droppableId]:{ 
+                            ...prevData.panel[source.droppableId],
+                            cardsIds: newCardOrder
+                        }
+                    }
+                }))
+                return
+            }
+
+            const start = Array.from(data.panel[source.droppableId].cardsIds);
+            const finish = Array.from(data.panel[destination.droppableId].cardsIds);
+            
+            start.splice(source.index, 1)
+            finish.splice(destination.index, 0, draggableId)
+            
+            setData((prevData) => ({
+                ...prevData, 
+                panel: {
+                    ...prevData.panel,
+                    [source.droppableId]:{ 
+                        ...prevData.panel[source.droppableId],
+                        cardsIds: start
+                    },
+                    [destination.droppableId]: { 
+                        ...prevData.panel[destination.droppableId],
+                        cardsIds: finish
+                    }
+                }
+            }))
+        }
     }
 
     return(
