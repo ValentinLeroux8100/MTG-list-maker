@@ -17,7 +17,7 @@ function PanelElement({id, index, cardMap, data, children}) {
             <h1>{id}</h1>
           </header>
 
-          <CardList id={id} cardsList={data.cardsList} cardsMap={cardMap}></CardList>
+          <CardList id={id} cardsList={data.cardsList} cardsMap={cardMap} useClone={true}></CardList>
           {provider.placeholder}
       </div>
     )}

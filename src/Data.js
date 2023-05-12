@@ -1,13 +1,13 @@
 const Data = {
     cards : {
-        "card-1" : {id: "card-1", text: "Lightning Bolt", color: ["red"]}, 
-        "card-2" : {id: "card-2", text: "Hellkite Overlord", color: ["green", "red", "black"]},
-        "card-3" : {id: "card-1", text: "Opt", color: ["blue"]}, 
-        "card-4" : {id: "card-2", text: "Sol Ring", color: []},
-        "card-5" : {id: "card-1", text: "Cultivate", color: ["green"]}, 
-        "card-6" : {id: "card-2", text: "Baleful Strix", color: ["blue", "black"]},
-        "card-7" : {id: "card-1", text: "Swords to Plowshares", color: ["white"]}, 
-        "card-8" : {id: "card-2", text: "Demonic Tutor", color: ["black"]},
+        "card-1" : {id: "card-1", name: "Lightning Bolt", color: ["red"], image: "https://cards.scryfall.io/large/front/f/2/f29ba16f-c8fb-42fe-aabf-87089cb214a7.jpg"}, 
+        "card-2" : {id: "card-2", name: "Hellkite Overlord", color: ["green", "red", "black"], image: "https://cards.scryfall.io/large/front/d/9/d99869b4-0bb6-444a-bdc4-5916371c9d29.jpg"},
+        "card-3" : {id: "card-1", name: "Opt", color: ["blue"], image: "https://cards.scryfall.io/large/front/3/2/323db259-d35e-467d-9a46-4adcb2fc107c.jpg"}, 
+        "card-4" : {id: "card-2", name: "Sol Ring", color: [], image: "https://cards.scryfall.io/large/front/e/c/eca9ae7b-a6d9-43ea-92d4-0110fd6643a7.jpg"},
+        "card-5" : {id: "card-1", name: "Cultivate", color: ["green"], image: "https://cards.scryfall.io/large/front/6/6/66a82a81-9b3e-421c-b916-15f40f359bf8.jpg"}, 
+        "card-6" : {id: "card-2", name: "Baleful Strix", color: ["blue", "black"], image: "https://cards.scryfall.io/large/front/b/4/b451783a-8824-4eeb-8fd6-c9290ce7ccdb.jpg"},
+        "card-7" : {id: "card-1", name: "Swords to Plowshares", color: ["white"], image: "https://cards.scryfall.io/large/front/8/1/81c31217-7919-40fd-97e7-88431b7bd277.jpg"}, 
+        "card-8" : {id: "card-2", name: "Demonic Tutor", color: ["black"], image: "https://cards.scryfall.io/large/front/3/b/3bdbc231-5316-4abd-9d8d-d87cff2c9847.jpg"},
     },
     panel : {
         "panel-1" : {
@@ -36,10 +36,10 @@ const Data = {
             title: "text 3", 
             type:"list",
             cardsList: [
-                {id: "6",cardId: "card-5", count: 1},  
-                {id: "7",cardId: "card-6", count: 4},  
-                {id: "8",cardId: "card-7", count: 1},  
-                {id: "9",cardId: "card-3", count: 1},  
+                {id: "6", cardId: "card-5", count: 1},  
+                {id: "7", cardId: "card-6", count: 4},  
+                {id: "8", cardId: "card-7", count: 1},  
+                {id: "9", cardId: "card-3", count: 1},  
             ]
         },
     },
