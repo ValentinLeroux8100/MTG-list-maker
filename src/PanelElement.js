@@ -4,7 +4,6 @@ import CardList from './CardList'
 import CardElement from './CardElement'
 
 function PanelElement({id, index, cardMap, data, children}) {
-  console.log(id);
   return (
     <Draggable draggableId={id} index={index}>
     {provider => (
@@ -18,7 +17,7 @@ function PanelElement({id, index, cardMap, data, children}) {
             <h1>{id}</h1>
           </header>
 
-          <CardList id={id} cardsIds={data.cardsIds} cardsMap={cardMap}></CardList>
+          <CardList id={id} cardsList={data.cardsList} cardsMap={cardMap}></CardList>
           {provider.placeholder}
       </div>
     )}

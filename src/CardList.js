@@ -2,9 +2,12 @@ import {React, useState} from 'react'
 import CardElement from './CardElement'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-function CardList({id, cardsIds, cardsMap}) {
+function CardList({id, cardsList, cardsMap}) {
   return (
-    <Droppable droppableId={id} type="card">
+    <Droppable 
+      droppableId={id} 
+      type="card"
+    >
     {(provider, snapshot) => (
       <div 
         {...provider.droppableProps} 
@@ -12,11 +15,12 @@ function CardList({id, cardsIds, cardsMap}) {
         className='card-list'
       >
         
-        {cardsIds.map((id,index) => {
-          const cardInfo = cardsMap[id].text
-          const cardColor = cardsMap[id].color
+        {cardsList.map((card, index) => {
+          const cardId = card.cardId
+          const cardInfo = cardsMap[cardId].text
+          const cardColor = cardsMap[cardId].color
           return (
-            <CardElement key={id} id={id} index={index} color={cardColor}>{cardInfo}</CardElement>
+            <CardElement key={card.id} id={card.id} index={index} color={cardColor} count={card.count}>{cardInfo}</CardElement>
           )
         })}
       

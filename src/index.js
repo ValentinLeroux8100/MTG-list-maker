@@ -15,73 +15,84 @@ function App(){
     const onDragEnd = result =>{
         const {destination, source, draggableId, type} = result;
 
-        if(!destination){ console.log("ping"); return } 
-
+        if(!destination){ return } 
+        
+        //If element didn't move
         if(destination.droppableId === source.droppableId 
         && destination.index === source.index) {return}
             
-        if(type == 'column'){
-            const newOrder = Array.from(data.panelOrder)
+        switch (type){
+            case 'column':{
+                const newOrder = Array.from(data.panelOrder)
     
-            if(newOrder[source.index] != draggableId) return;
-
-            newOrder.splice(source.index, 1)
-            newOrder.splice(destination.index, 0, draggableId)
+                if(newOrder[source.index] != draggableId) return;
+    
+                newOrder.splice(source.index, 1)
+                newOrder.splice(destination.index, 0, draggableId)
+                
+                setData((prevData) => ({...prevData, panelOrder: newOrder}))
+                break
+            }
             
-            setData((prevData) => ({...prevData, panelOrder: newOrder}))
-            return
-        }
- 
-        if(type == 'card'){
-            if(source.droppableId === destination.droppableId){
-                const newCardOrder = Array.from(data.panel[source.droppableId].cardsIds);
+            case 'card' :{
+                const start = Array.from(data.panel[source.droppableId].cardsList);
+                
+                if(start[source.index].id != draggableId) return;
 
-                if(newCardOrder[source.index] != draggableId) return;
+                //Pop the card to move
+                const cardToMove = start.splice(source.index, 1)[0] 
 
-                newCardOrder.splice(source.index, 1)
-                newCardOrder.splice(destination.index, 0, draggableId)
-
+                if(source.droppableId === destination.droppableId){
+                    start.splice(destination.index, 0, cardToMove)
+    
+                    setData((prevData) => ({
+                        ...prevData, 
+                        panel: {
+                            ...prevData.panel,
+                            [source.droppableId]:{ 
+                                ...prevData.panel[source.droppableId],
+                                cardsList: start
+                            }
+                        }
+                    }))
+                    return
+                }
+    
+                const finish = Array.from(data.panel[destination.droppableId].cardsList);
+                const similar = finish.findIndex(card => card.cardId == cardToMove.cardId)
+                
+                if(similar != -1){
+                    finish[similar].count += cardToMove.count
+                }else{
+                    finish.splice(destination.index, 0, cardToMove)
+                }
+                
                 setData((prevData) => ({
                     ...prevData, 
                     panel: {
                         ...prevData.panel,
                         [source.droppableId]:{ 
                             ...prevData.panel[source.droppableId],
-                            cardsIds: newCardOrder
+                            cardsList: start
+                        },
+                        [destination.droppableId]: { 
+                            ...prevData.panel[destination.droppableId],
+                            cardsList: finish
                         }
                     }
                 }))
-                return
+                break
             }
-
-            const start = Array.from(data.panel[source.droppableId].cardsIds);
-            const finish = Array.from(data.panel[destination.droppableId].cardsIds);
-            
-            if(start[source.index] != draggableId) return;
-
-            start.splice(source.index, 1)
-            finish.splice(destination.index, 0, draggableId)
-            
-            setData((prevData) => ({
-                ...prevData, 
-                panel: {
-                    ...prevData.panel,
-                    [source.droppableId]:{ 
-                        ...prevData.panel[source.droppableId],
-                        cardsIds: start
-                    },
-                    [destination.droppableId]: { 
-                        ...prevData.panel[destination.droppableId],
-                        cardsIds: finish
-                    }
-                }
-            }))
         }
+    }
+
+    const onBeforeCapture = (result) =>{
+        const {destination, source, draggableId, type} = result;
     }
 
     return(
         <main>
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={onDragEnd} onBeforeCapture={onBeforeCapture}>
                 <PanelContainer data={data}/>
             </DragDropContext>
         </main>

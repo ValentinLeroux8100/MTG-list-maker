@@ -14,20 +14,33 @@ const Data = {
             id: "panel-1",
             title: "text 1",
             type:"list",
-            cardsIds: ["card-4", "card-3", "card-8"]
+            cardsList: [
+                {id: "3", cardId: "card-4", count: 1}, 
+                {id: "4", cardId: "card-3", count: 2},  
+                {id: "5", cardId: "card-8", count: 1}
+            ]
             
         }, 
         "panel-2" : {
             id: "panel-2",
             title: "text 2", 
             type:"list",
-            cardsIds: ["card-1", "card-2"]
+            cardsList: [
+                {id: "0", cardId: "card-1", count: 1},  
+                {id: "1", cardId: "card-2", count: 3}, 
+                {id: "2", cardId: "card-5", count: 3}, 
+            ]
         },
         "panel-3" : {
             id: "panel-3",
             title: "text 3", 
             type:"list",
-            cardsIds: ["card-5", "card-6", "card-7"]
+            cardsList: [
+                {id: "6",cardId: "card-5", count: 1},  
+                {id: "7",cardId: "card-6", count: 4},  
+                {id: "8",cardId: "card-7", count: 1},  
+                {id: "9",cardId: "card-3", count: 1},  
+            ]
         },
     },
     panelOrder : ["panel-2", "panel-1", "panel-3"]

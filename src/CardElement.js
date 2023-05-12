@@ -2,7 +2,7 @@ import React from 'react'
 import cardNumberBackground from "./Graphics/Card Number Background.svg";
 import { Draggable } from 'react-beautiful-dnd'
 
-function CardElement({color, id, index, children}) {
+function CardElement({color, id, index, count, children}) {
   return (  
     <Draggable draggableId={id} index={index}>
     {provider => (
@@ -14,7 +14,7 @@ function CardElement({color, id, index, children}) {
       >
           <div className='card-number'>
               <img src={cardNumberBackground} alt="cardNumberBackground" className='card-number-background'/>
-              <div className='card-number-text'>3x</div>
+              <div className='card-number-text'>{count}x</div>
           </div>
           <div className='card-back'>
               <div className='card-mid'>
