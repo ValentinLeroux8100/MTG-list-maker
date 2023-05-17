@@ -7,6 +7,7 @@ function CardList({id, cardsList, useClone, cardsMap}) {
     <Droppable 
       droppableId={id} 
       type="card"
+      
       renderClone={
         useClone ? 
         (provider, snapshot, descriptor)=>{
@@ -17,15 +18,17 @@ function CardList({id, cardsList, useClone, cardsMap}) {
             info: cardsMap[cardId],
             count: cardsList[descriptor.source.index].count,
           }
-
           return(
-            <CardElement 
-              key={cardId} 
-              card={cardData} 
-              index={cardsList.length} 
-              provider={provider}
-              isDragging={snapshot.isDragging}
-              isClone = {true}></CardElement>
+            <>
+              <CardElement 
+                key={cardId} 
+                card={cardData} 
+                count={cardData.count - 100}
+                index={cardsList.length} 
+                provider={provider}
+                isDragging={snapshot.isDragging}
+                isClone = {true}/>
+            </>
           )
         }
         : null
@@ -46,11 +49,33 @@ function CardList({id, cardsList, useClone, cardsMap}) {
             count: card.count,
           }
           return (
-            <Draggable key={card.id} draggableId={card.id} index={index}>{
-              ( dragProvider, dragSnapshot ) => (
-                <CardElement index={index} card={cardData} provider={dragProvider} isDragging={dragSnapshot.isDragging}/>
-              )}
-            </Draggable>
+              <Draggable key={card.id} draggableId={card.id} index={index}>{
+                (dragProvider, dragSnapshot) => {
+                  let count = cardData.count
+                  if(dragSnapshot.isDragging){
+                    count -= 1
+                  }
+
+                  return(
+                    <>
+                      <CardElement 
+                      index={index} 
+                      card={cardData} 
+                      count={dragSnapshot.isDragging?1:cardData.count}
+                      provider={dragProvider} 
+                      isDragging={dragSnapshot.isDragging}/>
+
+                      {dragSnapshot.isDragging && count > 0 && 
+                        <CardElement 
+                          index={index} 
+                          card={cardData} 
+                          count={count}
+                          isDragging={dragSnapshot.isDragging}/>
+                      }
+                    </>
+                  )
+                }}
+              </Draggable>
           )
         })}
       

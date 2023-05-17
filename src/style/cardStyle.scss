@@ -21,12 +21,20 @@
     }
 }
 
+@mixin prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
 
 .card-top{
     height: 29px;
 
-    display: flex;
-    align-items: center;
+    display: grid;
+
+    grid-template-columns: auto auto;
+
+    text-align: left;
 
     border-radius: 15px / 35px;
 
@@ -37,11 +45,31 @@
     
     padding: {
         left: 2%;
-        top: 2px;
+        bottom: 2px;
     };
 
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+        
+    .card-title {    
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .card-mana {
+        text-align: right;
+        
+        img{
+            height: 0.9lh;
+            filter: 
+                drop-shadow(-1px 1.5px 0px rgba(0, 0, 0, 1)) 
+                drop-shadow(0px -0.3px 0px rgba(0, 0, 0, 1))
+                drop-shadow(0.5px 0px 0px rgba(0, 0, 0, 1));
+        }
+    }
 }
+
 
 .card-mid{
     height: 31px;
@@ -74,8 +102,9 @@
 
 .card{
     width: 100%;
+    font-family: 'Beleren';
     @include center-flex;
-
+    @include prevent-select;
     &.red{ 
         @include card-layer(cardColor.$redLight, cardColor.$redGradient, cardColor.$red);
         &.green{ 
@@ -198,19 +227,35 @@
     &.unco{ @include card-layer(cardColor.$uncolorLight, cardColor.$uncolorGradient, cardColor.$uncolor) }    
 }
 
+.card:hover ~ div > .card-image{
+    opacity: 100%;
+    visibility: visible;
+}
+
+.card-image{
+    @include prevent-select;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    height: 400px;
+    width: auto;
+    z-index: 1;
+    transition: opacity 0.2s 0.2s ease-out, visibility 0.2s 0.2s ease-out;
+}
+
 .card-number{
     position: relative;
     @include center-flex;
-}
 
-.card-number-text{
-    position: absolute;
+    &-text{
+        position: absolute;
 
-    color: white;
-    
-    font-size: 25px;
-    
-    top: 55%;
-    left: 45%;
-    transform: translate(-50%, -50%);
+        color: white;
+        
+        font-size: 25px;
+        
+        top: 55%;
+        left: 45%;
+        transform: translate(-50%, -50%);
+    }
 }

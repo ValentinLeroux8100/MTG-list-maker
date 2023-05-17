@@ -1,0 +1,61 @@
+@mixin center-flex{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.side-menu{
+    background-color: #222;
+    border-right: 1px solid #000;
+
+    position: sticky;
+    
+    overflow-y: hidden;
+
+    z-index: 2;
+    
+    left: 0;
+    width: 400px;
+
+    list-style: none;
+    transition: margin-left 0.5s ease-in-out, left 0.5s ease-in-out;
+
+    &.hide{
+        margin-left: calc((-400px/5)*4);
+        left: calc((-400px/5)*4);
+    }
+
+    &-nav{
+        display: grid;
+        grid-template-columns: repeat(5, 20%);
+        
+        > li{
+            @include center-flex();
+        }
+        
+        &-button{
+            @include center-flex();
+
+            transition: border-bottom 0.5s ease-in-out;
+
+            background-color: #444;
+
+            width: 100%;
+
+            border: { 
+                style: solid;
+                width: 1px;
+                color: #000;
+                radius: 10% 10% 0 0;
+                right: 0px solid #000;
+            }
+
+            &.selected{
+                border-bottom: 1px solid #444;
+            }
+
+            aspect-ratio: 1 / 1;
+        }
+    }
+}
