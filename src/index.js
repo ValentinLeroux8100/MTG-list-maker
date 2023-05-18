@@ -27,14 +27,15 @@ function App(){
 
     const moveOneCard = (source, destination, draggableId) => {
         
-        const start = Array.from(data.panel[source.droppableId].cardsList);
+        const start = Array.from(data.panel[source.droppableId].cardsList)
                 
         if(start[source.index].id != draggableId) return
         if(source.droppableId === destination.droppableId) return
         
         const cardToMove = start.splice(source.index, 1)[0]
 
-        const finish = Array.from(data.panel[destination.droppableId].cardsList);
+        const finish = Array.from(data.panel[destination.droppableId].cardsList)
+
         const similar = finish.findIndex(card => card.cardId == cardToMove.cardId)
         
         if(cardToMove.count != 1){
@@ -44,7 +45,8 @@ function App(){
 
         if(similar != -1){
             finish[similar].count += 1
-        }else{
+        }
+        else{
             let copyCardToMove = {... cardToMove}
             copyCardToMove.id += "_" + data.panel[destination.droppableId].id
             copyCardToMove.count = 1
@@ -86,16 +88,11 @@ function App(){
                 break
             }
         }
-
-        
-    }
-
-    const onDragStart = result =>{
     }
 
     return(
         <main>
-            <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+            <DragDropContext onDragEnd={onDragEnd}>
                 <SideMenu/>
                 <PanelContainer data={data}/>
             </DragDropContext>

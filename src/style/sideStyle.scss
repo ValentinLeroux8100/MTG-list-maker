@@ -1,9 +1,4 @@
-@mixin center-flex{
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-}
+@use "Abstract/utils.scss" as *;
 
 .side-menu{
     background-color: #222;
@@ -19,7 +14,10 @@
     width: 400px;
 
     list-style: none;
-    transition: margin-left 0.5s ease-in-out, left 0.5s ease-in-out;
+    
+    transition: 
+        margin-left 0.2s ease-in-out, 
+        left 0.2s ease-in-out;
 
     &.hide{
         margin-left: calc((-400px/5)*4);
@@ -28,16 +26,22 @@
 
     &-nav{
         display: grid;
-        grid-template-columns: repeat(5, 20%);
-        
+        grid-template: {
+            columns: repeat(5, 20%);
+        }
         > li{
             @include center-flex();
         }
         
         &-button{
             @include center-flex();
+            @include prevent-select();
 
-            transition: border-bottom 0.5s ease-in-out;
+            transition: {
+                property: border-bottom;
+                duration: 0.2s;
+                timing-function: ease-in-out;
+            }
 
             background-color: #444;
 
@@ -56,6 +60,69 @@
             }
 
             aspect-ratio: 1 / 1;
+        }
+    }
+
+    &-panel{
+        height:100%;
+
+        display: flex;
+        justify-content: center;
+        
+        background-color: #444;
+        
+        &-search-bar {
+            width: 90%;
+            height: min-content;
+            
+            margin: {
+                top: 5px;
+            }
+
+            padding: 10px;
+
+            display: grid;
+
+            grid-template: {
+                columns: auto min-content;
+            }
+
+            align-items: center;
+
+            background-color: #222;
+
+            border: {
+                style: solid;
+                width: 1px;
+                color: #000;
+                radius: 20px;
+            };
+
+            > input{
+                background-color: #0000;
+                border: 0px;
+                color: white;
+
+                font: {
+                    family: 'Coolvetica';
+                    size: 1.2em;
+                }
+
+                &:focus{
+                    outline: none;
+                }
+
+                &::placeholder {
+                    color: #666;
+                    @include prevent-select();
+                }
+            }
+
+            > img{
+                height: 20px;
+                margin-left: 5px;
+            }
+
         }
     }
 }

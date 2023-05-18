@@ -1,8 +1,4 @@
-@font-face {
-    font-family: "Beleren";
-    src: local("Beleren"),
-      url("./Font/beleren/Beleren2016-Bold.ttf") format("TrueType");
-}
+@use "Abstract/abstract.scss" as *;
 
 body{
     overflow-y: hidden;
@@ -33,15 +29,21 @@ section{
     height : 4rem;
 
     display: grid;
+
     grid-template-columns: auto auto;
+
     align-items: center;
 
     background-color: #444;
 
-    padding: 0 10px;
-    padding-top: 0.2em;
+    padding: {
+        top: 0.2em;
+        left: 10px;
+        right: 10px;
+    }
 
     font-size: 1.8em;
+
     color: white;
 }
 
@@ -50,7 +52,11 @@ section{
 
     background-color: #222;
 
-    border: solid black 1px;
+    border: {
+        style: solid;
+        color: black;
+        width: 1px;
+    }
 
     text-align: right;
 }
@@ -62,8 +68,5 @@ section{
     background-color: black;
     
     border-radius: 5px;
-}
-
-.card-list{
-    height: 80%;
+    
 }
