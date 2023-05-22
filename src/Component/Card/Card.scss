@@ -1,4 +1,4 @@
-@use "Abstract/abstract.scss" as *;
+@use "style/Abstract/abstract.scss" as *;
 
 .card{
     width: 100%;
@@ -73,12 +73,7 @@
             inset 0px -1px 0px rgba(255, 255, 255, 0.25),
             inset 0px 1px 0px rgba(255, 255, 255, 0.15);
         
-        margin: {
-            top: 3px;
-            left: -3px;
-            bottom: 3px;
-            right: 3px; 
-        }
+        margin: 3px;
         
         border: {
             style: solid;
@@ -108,12 +103,14 @@
         position: relative;
     
         @include center-flex;
+
+        margin-right: -6px;
     
         &-text{
             position: absolute;
     
             color: white;
-            
+
             font-size: 25px;
             
             top: 55%;

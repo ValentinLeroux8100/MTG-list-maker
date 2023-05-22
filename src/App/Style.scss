@@ -1,0 +1,37 @@
+@use "style/Abstract/abstract.scss" as *;
+
+body{
+    overflow-y: hidden;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main{
+    height: 100vh;
+    width: fit-content;
+    
+    display: flex;
+    
+    background-color: darkgray;
+    
+    font-family: 'Beleren';
+}
+
+section{
+    width: fit-content;
+    display: flex;
+}
+
+
+.box-selector{
+    width: 40px;
+    height: 40px;
+
+    background-color: black;
+    
+    border-radius: 5px;
+    
+}

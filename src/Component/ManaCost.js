@@ -8,9 +8,10 @@ function importAll(r) {
 
 
 function ManaCost({cost}) {
-  const images = importAll(require.context('./Graphics/mana_symbol', false, /\.(png|jpe?g|svg)$/));
+  const images = importAll(require.context('graphics/mana_symbol', false, /\.(png|jpe?g|svg)$/));
   
   const list_cost = cost.replace(/{([^/}]*)\/*([^/}]*)\/*([^/}]*)}/g, "$1$2$3,").split(',').slice(0, -1)
+
   return (
     <div className='card-mana'>
       {list_cost.map((symbol, index) => {

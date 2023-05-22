@@ -1,4 +1,4 @@
-@use "Abstract/utils.scss" as *;
+@use "style/Abstract/utils.scss" as *;
 
 .side-menu{
     background-color: #222;
@@ -67,62 +67,24 @@
         height:100%;
 
         display: flex;
-        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         
         background-color: #444;
-        
-        &-search-bar {
-            width: 90%;
-            height: min-content;
-            
+
+        &-search-bar, &-sub-menu{
+            width: 95%;
+
             margin: {
                 top: 5px;
             }
-
-            padding: 10px;
-
-            display: grid;
-
-            grid-template: {
-                columns: auto min-content;
-            }
-
-            align-items: center;
-
-            background-color: #222;
-
-            border: {
-                style: solid;
-                width: 1px;
-                color: #000;
-                radius: 20px;
-            };
-
-            > input{
-                background-color: #0000;
-                border: 0px;
-                color: white;
-
-                font: {
-                    family: 'Coolvetica';
-                    size: 1.2em;
-                }
-
-                &:focus{
-                    outline: none;
-                }
-
-                &::placeholder {
-                    color: #666;
-                    @include prevent-select();
-                }
-            }
-
-            > img{
-                height: 20px;
-                margin-left: 5px;
-            }
-
         }
+
+        &-sub-menu {
+            gap: 12px;
+            display: flex;
+            flex-direction: row;
+        }
+
     }
 }

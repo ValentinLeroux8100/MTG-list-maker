@@ -7,12 +7,14 @@ const Data = {
             manaCost: "{R}", 
             image: "https://cards.scryfall.io/large/front/f/2/f29ba16f-c8fb-42fe-aabf-87089cb214a7.jpg"
         }, 
+        
         "card-2" : {
             id: "card-2", 
             name: "Hellkite Overlord", 
             color: ["green", "red", "black"],
             manaCost: "{4}{B}{R}{R}{G}", 
             image: "https://cards.scryfall.io/large/front/d/9/d99869b4-0bb6-444a-bdc4-5916371c9d29.jpg"},
+
         "card-3" : {
             id: "card-1", 
             name: "Opt", 
