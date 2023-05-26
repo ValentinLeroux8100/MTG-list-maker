@@ -6,13 +6,13 @@ import { DataContext } from "App/App"
 
 function PanelContainer() {
     const data = useContext(DataContext)
-    
+    console.log(data);
     return (
         <Droppable droppableId='all-panel' direction="horizontal" type="column">
             {provider => (
                 <section {...provider.droppableProps} ref={provider.innerRef}>
-                    {data.panelOrder.map((id,index) => {
-                        const panelData = data.panel[id]
+                    {data.data.panelOrder.map((id,index) => {
+                        const panelData = data.data.panel[id]
                         
                         return (
                             <Panel key={id} id={id} index={index} type={panelData.type}>

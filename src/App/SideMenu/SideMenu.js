@@ -1,19 +1,23 @@
-import React, {useState, useRef, useEffect, useDeferredValue} from 'react'
+import {useState, useRef, useEffect, useContext} from 'react'
 import SideMenuIcon from './SideMenuIcon';
 import SearchBar from "Component/SearchBar/SearchBar";
 import SelectBoxInput from 'Component/SelectBoxInput/SelectBoxInput';
+import { DataContext } from "App/App"
 
 import "./SideMenu.scss"
+import CardList from 'Component/Card/CardList';
 
 function SideMenu() {
   const sideMenuRef = useRef();
-
   const [hideState, setHideState] = useState(false)
+  
+  const searchBar = useRef()
+  const searchSort = useRef()
+  const searchOrder = useRef()
 
-  const panel = [{name: "Search"}]
-
-  const [selectedPanelId, setSelectedPanelId] = useState(0)
   const [searchValue, setSearchValue] = useState("")
+  const [sortValue, setSortValue] = useState("")
+  const [orderValue, setOrderValue] = useState("")
 
   const sortOption = [
     "Name", "Set", "Released", "Rarity", "Color", "Usd", "Tix", 
@@ -27,39 +31,61 @@ function SideMenu() {
     sideMenuRef.current.className = 'side-menu ' + (hideState?"":"hide")
   }
 
-  const select = (panelId) => {
-    setSelectedPanelId(() => panelId)
-  }
-
-  const insertInData = (json) => {
-
-  }
 
   const searchCards = (request) => {
+    const sort = sortOption[sortValue]?.toLowerCase();
+    const order = orderOption[orderValue]?.toLowerCase();
+
     if(request != ""){
-      fetch("https://api.scryfall.com/cards/search?q="+request)
+      fetch(
+        "https://api.scryfall.com/cards/search"+
+          "?order="+sort+
+          "&dir="+order+
+          "&q="+request)
         .then(result => result.json())
-        .then(json => setSearchResult(json))
-      
-      
+        .then(json => updateCardData(json))
     }
   }
 
-  const updateSearchCard = useEffect(() => {
-    const timer = setTimeout(() => {
-      searchCards(searchValue)
-    }, 1000);
+  const [resultCard, setResultCard] = useState([])
+  const data = useContext(DataContext)
+
+  const updateCardData = (result) => {
+    setResultCard([])
+
+    result.data?.map((element) => {
+
+      const cardData = {
+        [element.id]: {
+          ...element,
+        }
+      }
+
+      data.dispatch({type:"addCardData", cardData: cardData})
+      
+      setResultCard((prevState) => [...prevState,{id: element.id, cardId: element.id, count: 2}])
+    })
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => { searchCards(searchValue) }, 2000);
     return () => clearTimeout(timer);
-  }, [searchValue])
+  }, [searchValue, sortValue, orderValue])
 
   const requestCard = (event) =>{
     setSearchValue(() => (event.target.value))
+  }
+  const changeSort = (event) =>{
+    setSortValue(() => (event.target.selectedIndex))
+  }
+  const changeOrder = (event) =>{
+    setOrderValue(() => (event.target.selectedIndex))
   }
 
   return (
     <menu ref={sideMenuRef} className='side-menu'>
       <nav className='side-menu-nav'>  
-        <SideMenuIcon selected={true}>Search</SideMenuIcon>
+        <SideMenuIcon selected={true}>Search</SideMenuIcon> 
         <SideMenuIcon  
           onClick={hide} 
           selected={hideState?true:false}
@@ -68,13 +94,16 @@ function SideMenu() {
         </SideMenuIcon>   
        </nav>
       <div className='side-menu-panel'>
-        <div className='side-menu-panel-search-bar'>
-          <SearchBar onChange={requestCard}>Enter here your search</SearchBar>
+        <div className='side-menu-panel-header'>
+          <div className='side-menu-panel-search-bar'>
+            <SearchBar ref={searchBar} onChange={requestCard}>Enter here your search</SearchBar>
+          </div>
+          <div className='side-menu-panel-sub-menu'>
+            <SelectBoxInput ref={searchSort} onChange={changeSort} name="sort" id="sort" isMultiple={false} option={sortOption}></SelectBoxInput>
+            <SelectBoxInput ref={searchOrder} onChange={changeOrder} name="order" id="order" isMultiple={false} option={orderOption}></SelectBoxInput>
+          </div>
         </div>
-        <div className='side-menu-panel-sub-menu'>
-          <SelectBoxInput name="sort" id="sort" isMultiple={false} option={sortOption}></SelectBoxInput>
-          <SelectBoxInput name="order" id="order" isMultiple={false} option={orderOption}></SelectBoxInput>
-        </div>
+        <CardList id={"search"} cards={resultCard} displayCount={false} isDropDisable={true}></CardList>
       </div>
     </menu>
   )

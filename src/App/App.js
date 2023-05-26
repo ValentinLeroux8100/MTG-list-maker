@@ -21,10 +21,16 @@ function App(){
         
         if(destination.droppableId === source.droppableId 
         && destination.index === source.index) {return}
-
+        console.log(draggableId);
         switch (type){
             case 'column': {dispatch({type:"movePanel", ...info}); break; }
-            case 'card' : {dispatch({type:"moveCardToList", ...info}); break; }
+            case 'card' : 
+                if(source.droppableId == "search") {
+                    dispatch({type:"addCardToList", panelId: destination.droppableId, card:draggableId})
+                }else{
+                    dispatch({type:"moveCardToList", ...info})
+                }
+                break; 
         }
     }
     
@@ -33,19 +39,15 @@ function App(){
         dispatch({type:"addPanel", panelType:"list"})
         dispatch({type:"addPanel", panelType:"list"})
         dispatch({type:"removePanel", panelId:"panel-0"})
-        dispatch({type:"addCardToList", panelId:"panel-1", card:"card-1"})
-        dispatch({type:"removeCardToList", panelId:"panel-1", card:"card-1"})
-        dispatch({type:"addCardToList", panelId:"panel-1", card:"card-1"})
-        dispatch({type:"addCardToList", panelId:"panel-1", card:"card-1"})
         
     }, [])
 
     return(
         <main>
-            <DataContext.Provider value={data}>
+            <DataContext.Provider value={{data: data, dispatch: dispatch}}>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <SideMenu/>
-                    <PanelContainer data={data}/>
+                    <PanelContainer/>
                 </DragDropContext>
             </DataContext.Provider>
         </main>

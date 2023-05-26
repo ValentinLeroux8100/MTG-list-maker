@@ -6,12 +6,16 @@ import './Card.scss'
 
 function CardList({id, cards, displayCount = true}) {
   const data = useContext(DataContext)
-  const cardsData = data.cardsData
-
+  const cardsData = data.data.cardsData
+  
   return (
     <Droppable droppableId={id} type="card">
     {(provider) => (
-      <div {...provider.droppableProps} ref={provider.innerRef} className='card-list'>
+      <div 
+        {...provider.droppableProps} 
+        ref={provider.innerRef} 
+        className='card-list'
+      >
         
         {cards.map((card, index) => {
           const cardId = card.cardId

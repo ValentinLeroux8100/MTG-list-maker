@@ -3,20 +3,24 @@ import { PanelDataAction } from './PanelContainer/Panel'
 
 const initData = {   
     cardsData: {
-        "card-1" : {
-            id: "card-1", 
-            name: "Lightning Bolt", 
-            color: ["red"],
-            manaCost: "{R}", 
-            image: "https://cards.scryfall.io/large/front/f/2/f29ba16f-c8fb-42fe-aabf-87089cb214a7.jpg"
-        }, 
     },
     panel: {},
     panelOrder: []
 }
 
+const addCardData = (data, action) => {
+    return {
+        ...data,
+        cardsData: {
+            ...data.cardsData,
+            ...action.cardData
+        }
+    }
+}
+
 const actionList = {
-    ...PanelDataAction
+    ...PanelDataAction,
+    "addCardData": addCardData
 }
 
 const dataReducer = (data, action) => {

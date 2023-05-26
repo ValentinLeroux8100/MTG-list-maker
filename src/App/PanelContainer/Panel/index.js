@@ -18,6 +18,8 @@ function Panel({id, index, type, children}) {
   const isTypeExist = Object.keys(PanelInfo).find(element => element == type) != undefined
   const SpecificPanel = (isTypeExist)?PanelInfo[type].content:""
 
+  console.log(index);
+
   return (
       <>
         {isTypeExist && 
