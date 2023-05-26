@@ -1,64 +1,76 @@
-import React, {useContext} from 'react'
-import PropTypes from "prop-types"
-import CardElement from './CardElement'
-import {Droppable, Draggable } from 'react-beautiful-dnd'
-import { DataContext } from "App/App"
-import './Card.scss'
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import CardElement from "./CardElement";
+import { Droppable, Draggable } from "react-beautiful-dnd";
+import { DataContext } from "App/App";
+import "./Card.scss";
 
-function CardList({id, cards, displayCount = true}) {
-  const data = useContext(DataContext)
-  const cardsData = data.data.cardsData
-  
+function CardList({ id, cards, displayCount = true, isDropDisabled = false }) {
+  const data = useContext(DataContext);
+  const cardsData = data.data.cardsData;
+
   return (
-    <Droppable droppableId={id} type="card">
-    {(provider) => (
-      <div 
-        {...provider.droppableProps} 
-        ref={provider.innerRef} 
-        className='card-list'
-      >
-        
-        {cards.map((card, index) => {
-          const cardId = card.cardId
-          const cardData = { id: card.id, info: cardsData[cardId], count: card.count}
-          
-          return (
-              <Draggable key={card.id} draggableId={card.id} index={index}>
-              {
-                (dragProvider, dragSnapshot) => {
-                  let count = cardData.count
+    <Droppable droppableId={id} type="card" isDropDisabled={isDropDisabled}>
+      {(provider) => (
+        <div
+          {...provider.droppableProps}
+          ref={provider.innerRef}
+          className="card-list"
+        >
+          {cards.map((card, index) => {
+            const cardId = card.cardId;
+            const cardData = {
+              id: card.id,
+              info: cardsData[cardId],
+              count: card.count,
+            };
 
-                  if(dragSnapshot.isDragging){
-                    count -= 1
+            return (
+              <Draggable key={card.id} draggableId={card.id} index={index}>
+                {(dragProvider, dragSnapshot) => {
+                  let count = cardData.count;
+
+                  if (dragSnapshot.isDragging) {
+                    count -= 1;
                   }
 
-                  return(
+                  return (
                     <>
-                      <CardElement index={index} card={cardData} provider={dragProvider} 
-                      count={dragSnapshot.isDragging?1:cardData.count} displayCount={displayCount}/>
+                      <CardElement
+                        index={index}
+                        card={cardData}
+                        provider={dragProvider}
+                        count={dragSnapshot.isDragging ? 1 : cardData.count}
+                        displayCount={displayCount}
+                      />
 
-                      {dragSnapshot.isDragging && count > 0 && 
-                        <CardElement index={index} card={cardData} count={count} displayCount={displayCount}/>
-                      }
+                      {dragSnapshot.isDragging && count > 0 && (
+                        <CardElement
+                          index={index}
+                          card={cardData}
+                          count={count}
+                          displayCount={displayCount}
+                        />
+                      )}
                     </>
-                  )
+                  );
                 }}
               </Draggable>
-          )
-        })}
-      
-      {provider.placeholder}  
-      
-      </div>
-    )}
+            );
+          })}
+
+          {provider.placeholder}
+        </div>
+      )}
     </Droppable>
-  )
+  );
 }
 
 CardList.propTypes = {
-  id: PropTypes.string, 
-  cards: PropTypes.array, 
-  displayCount: PropTypes.bool
-}
+  id: PropTypes.string,
+  cards: PropTypes.array,
+  displayCount: PropTypes.bool,
+  isDropDisabled: PropTypes.bool,
+};
 
-export default CardList
+export default CardList;

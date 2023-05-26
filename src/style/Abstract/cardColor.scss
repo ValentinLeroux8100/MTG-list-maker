@@ -2,97 +2,94 @@
 @use "sass:map";
 
 $color: (
-    "white": (
-        "regular" : #F0E9E0,
-        "light" : #F0E9E0,
-        "gradient" : linear-gradient(#fcf8f2, #cbc4bc),
-    ),
-    "blue": (
-        "regular" : #2780B4,
-        "light" : #83BAD8,
-        "gradient" : linear-gradient(#96d7f9, #6d9ab2),
-    ),
-    "black": (
-        "regular" : #55524A,
-        "light" : #A29C98,
-        "gradient" : linear-gradient(#c9c1bb, #787370),
-    ),
-    "red": (
-        "regular" : #EC4224,
-        "light" : #F6B09A,
-        "gradient" : linear-gradient(#ffc3b1, #cc917f),
-    ),
-    "green": (
-        "regular" : #027C49,
-        "light" : #AECEBC,
-        "gradient" : linear-gradient(#d0eddc, #92ad9e),
-    ),
-    "gold": (
-        "regular" : #efd67a,
-        "light" : #D6BE73,
-        "gradient" : linear-gradient(#f7db86, #ae9a5f),
-    ),
-    "unco": (
-        "regular" : #969F9E,
-        "light" : #CAD3D2,
-        "gradient" : linear-gradient(#e8f4f2, #a5acab),
-    )
+  "white": (
+    "regular": #f0e9e0,
+    "light": #f0e9e0,
+    "gradient": linear-gradient(#fcf8f2, #cbc4bc),
+  ),
+  "blue": (
+    "regular": #2780b4,
+    "light": #83bad8,
+    "gradient": linear-gradient(#96d7f9, #6d9ab2),
+  ),
+  "black": (
+    "regular": #55524a,
+    "light": #a29c98,
+    "gradient": linear-gradient(#c9c1bb, #787370),
+  ),
+  "red": (
+    "regular": #ec4224,
+    "light": #f6b09a,
+    "gradient": linear-gradient(#ffc3b1, #cc917f),
+  ),
+  "green": (
+    "regular": #027c49,
+    "light": #aecebc,
+    "gradient": linear-gradient(#d0eddc, #92ad9e),
+  ),
+  "gold": (
+    "regular": #efd67a,
+    "light": #d6be73,
+    "gradient": linear-gradient(#f7db86, #ae9a5f),
+  ),
+  "unco": (
+    "regular": #969f9e,
+    "light": #cad3d2,
+    "gradient": linear-gradient(#e8f4f2, #a5acab),
+  ),
 );
 
 $cardColors: "white", "blue", "black", "red", "green";
 
-@mixin card-layer($cardColor, $primaryColor: "none", $secondaryColor: "none"){
-    .card-back{
-        @if ($primaryColor == "none") or ($secondaryColor == "none"){
-            background: map.get($color, $cardColor, "regular");
-        }@else{
-            background: linear-gradient(
-                0.25turn,
-                map.get($color, $primaryColor, "regular"),
-                map.get($color, $secondaryColor, "regular")
-            )
-        }
+@mixin card-layer($cardColor, $primaryColor: "none", $secondaryColor: "none") {
+  .card-back {
+    @if ($primaryColor == "none") or ($secondaryColor == "none") {
+      background: map.get($color, $cardColor, "regular");
+    } @else {
+      background: linear-gradient(
+        0.25turn,
+        map.get($color, $primaryColor, "regular"),
+        map.get($color, $secondaryColor, "regular")
+      );
     }
+  }
 
-    .card-mid{
-        background: map.get($color, $cardColor, "gradient");
-    }
+  .card-mid {
+    background: map.get($color, $cardColor, "gradient");
+  }
 
-    .card-top{
-        background-color:  map.get($color, $cardColor, "light");
-    }
+  .card-top {
+    background-color: map.get($color, $cardColor, "light");
+  }
 }
 
-@mixin card-color-style(){
-    
-    @include card-layer("unco");
+@mixin card-color-style() {
+  @include card-layer("unco");
 
-    @for $colorPricipalId from 1 through list.length($cardColors){
+  @for $colorPricipalId from 1 through list.length($cardColors) {
+    $colorPrincipal: list.nth($cardColors, $colorPricipalId);
 
-        $colorPrincipal: list.nth($cardColors, $colorPricipalId);
-        
-        &.#{$colorPrincipal}{
-            
-            @include card-layer($colorPrincipal);
+    &.#{$colorPrincipal} {
+      @include card-layer($colorPrincipal);
 
-            @for $colorSecondaryId from $colorPricipalId through ($colorPricipalId + 1){
-                
-                $colorSecondaryId: ($colorSecondaryId % list.length($cardColors)) + 1;
-                $colorSecondary: list.nth($cardColors, $colorSecondaryId);
-                    
-                &.#{$colorSecondary}{
-                
-                    @include card-layer("gold", $colorPrincipal, $colorSecondary);
+      @for $colorSecondaryId
+        from $colorPricipalId
+        through ($colorPricipalId + 1)
+      {
+        $colorSecondaryId: ($colorSecondaryId % list.length($cardColors)) + 1;
+        $colorSecondary: list.nth($cardColors, $colorSecondaryId);
 
-                    $colorThirdid: ($colorSecondaryId % list.length($cardColors)) + 1;
-                    $colorThird: list.nth($cardColors, $colorThirdid);
-                    
-                    &.#{$colorThird}{
-                        @include card-layer("gold");
-                    }
-                }
+        &.#{$colorSecondary} {
+          @include card-layer("gold", $colorPrincipal, $colorSecondary);
 
-            }
+          $colorThirdid: ($colorSecondaryId % list.length($cardColors)) + 1;
+          $colorThird: list.nth($cardColors, $colorThirdid);
+
+          &.#{$colorThird} {
+            @include card-layer("gold");
+          }
         }
+      }
     }
+  }
 }

@@ -1,0 +1,28 @@
+.custom-form {
+  width: 97%;
+  padding: {
+    left: 1.5%;
+    right: 1.5%;
+  }
+
+  border: {
+    bottom: 1px solid black;
+  }
+
+  &-container {
+    display: flex;
+    width: 100%;
+
+    margin: {
+      top: 1.5%;
+      bottom: 1.5%;
+    }
+
+    > * {
+      margin: {
+        left: 1%;
+        right: 1%;
+      }
+    }
+  }
+}

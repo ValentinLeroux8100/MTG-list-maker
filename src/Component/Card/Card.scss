@@ -1,165 +1,164 @@
 @use "style/Abstract/abstract.scss" as *;
 
+.card {
+  width: 100%;
+  font-family: "Beleren";
 
+  @include center-flex;
+  @include prevent-select;
+  @include card-color-style;
 
-.card{
+  --box-width: 0px;
+  &:hover {
+    > .card-back > .card-mid > .card-top > .card-title > .card-title-content {
+      animation: {
+        name: slidein;
+        duration: 3s;
+        delay: 1s;
+        iteration-count: infinite;
+      }
+    }
+  }
+
+  &-title {
+    white-space: nowrap;
+    overflow: hidden;
+
+    &-content {
+      @keyframes slidein {
+        from {
+          transform: translateX(0px);
+        }
+        to {
+          transform: translateX(
+            min(calc(-100% + var(--box-width) - 10px), 0px)
+          );
+        }
+      }
+
+      width: fit-content;
+    }
+  }
+
+  &-mana {
+    text-align: right;
+    margin-left: 10px;
+
+    img {
+      height: 100%;
+
+      filter: drop-shadow(-1px 1.5px 0px rgba(0, 0, 0, 1))
+        drop-shadow(0px -0.3px 0px rgba(0, 0, 0, 1))
+        drop-shadow(0.5px 0px 0px rgba(0, 0, 0, 1));
+    }
+  }
+
+  &-top {
+    height: 29px;
+
+    display: grid;
+
+    grid-template: {
+      columns: auto auto;
+      rows: 29px;
+    }
+
+    text-align: left;
+
+    border-radius: 15px / 30px;
+
+    color: black;
+
+    font-size: 1.7em;
+
+    padding: {
+      left: 2%;
+      bottom: 2px;
+    }
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+    overflow: hidden;
+  }
+
+  &-mid {
+    height: 31px;
+
+    border-radius: 15px / 30px;
+
+    padding: 2px;
+  }
+
+  &-back {
+    height: 33px;
     width: 100%;
-    font-family: 'Beleren';
+
+    padding: {
+      top: 4px;
+      left: 5px;
+      bottom: 6px;
+      right: 5px;
+    }
+
+    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.25),
+      inset 0px 1px 0px rgba(255, 255, 255, 0.15);
+
+    margin: 3px;
+
+    border: {
+      style: solid;
+      color: black;
+      width: 1px;
+      radius: 15px / 30px;
+    }
+
+    overflow: hidden;
+  }
+
+  &-image {
+    @include prevent-select;
+    height: 400px;
+    width: auto;
+
+    opacity: 0;
+    visibility: hidden;
+
+    position: absolute;
+    z-index: 1;
+
+    transition: opacity 0.2s 0.2s ease-out, visibility 0.2s 0.2s ease-out;
+  }
+
+  &-number {
+    position: relative;
 
     @include center-flex;
-    @include prevent-select;
-    @include card-color-style;
 
-    --box-width: 0px;
-    &:hover{
-        > .card-back > .card-mid > .card-top > .card-title > .card-title-content{
-            animation: {
-                name: slidein;
-                duration: 3s;
-                delay: 1s;
-                iteration-count: infinite;
-            }
-        }
+    margin-right: -6px;
+
+    &-text {
+      position: absolute;
+
+      color: white;
+
+      font-size: 25px;
+
+      top: 55%;
+      left: 45%;
+
+      transform: translate(-50%, -50%);
     }
-
-    &-title {
-        white-space: nowrap;
-        overflow: hidden;
-
-        &-content{
-            @keyframes slidein {
-                from { transform: translateX(0px); } 
-                to { transform: translateX(min(calc(-100% + var(--box-width) - 10px), 0px));}
-            };
-
-            width: fit-content;
-        }
-    }
-
-    &-mana {
-        text-align: right;
-        margin-left: 10px;
-
-        img{
-            height: 100%;
-            
-            filter: 
-                drop-shadow(-1px 1.5px 0px rgba(0, 0, 0, 1)) 
-                drop-shadow(0px -0.3px 0px rgba(0, 0, 0, 1))
-                drop-shadow(0.5px 0px 0px rgba(0, 0, 0, 1));
-        }
-    }
-
-    &-top{
-        height: 29px;
-
-        display: grid;
-
-        grid-template: {
-            columns: auto auto;
-            rows: 29px;
-        }
-        
-        text-align: left;
-
-        border-radius: 15px / 30px;
-
-        color: black;
-
-        font-size: 1.7em;
-
-        padding: {
-            left: 2%;
-            bottom: 2px;
-        }
-
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-        overflow: hidden;
-    }
-    
-    &-mid{
-        height: 31px;
-
-        border-radius: 15px / 30px;
-        
-        padding: 2px;
-    }
-
-    &-back{
-        height: 33px;
-        width: 100%;
-        
-        padding: {
-            top: 4px; 
-            left: 5px; 
-            bottom: 6px;
-            right: 5px;
-        }
-        
-        box-shadow: 
-            inset 0px -1px 0px rgba(255, 255, 255, 0.25),
-            inset 0px 1px 0px rgba(255, 255, 255, 0.15);
-        
-        margin: 3px;
-        
-        border: {
-            style: solid;
-            color: black;
-            width: 1px;
-            radius: 15px / 30px;
-        }
-
-        overflow: hidden;
-    }
-
-    &-image{
-        @include prevent-select;
-        height: 400px;
-        width: auto;
-        
-        opacity: 0;
-        visibility: hidden;
-        
-        position: absolute;
-        z-index: 1;
-        
-        transition: 
-            opacity 0.2s 0.2s ease-out, 
-            visibility 0.2s 0.2s ease-out;
-    }
-    
-    &-number{
-        position: relative;
-    
-        @include center-flex;
-
-        margin-right: -6px;
-    
-        &-text{
-            position: absolute;
-    
-            color: white;
-
-            font-size: 25px;
-            
-            top: 55%;
-            left: 45%;
-            
-            transform: translate(-50%, -50%);
-        }
-    }
-
+  }
 }
 
-.card:hover ~ div > .card-image{
-    opacity: 100%;
-    visibility: visible;
+.card:hover ~ div > .card-image {
+  opacity: 100%;
+  visibility: visible;
 }
 
-.card-list{
-    height: inherit;
-    width: 100%;
-    
-    overflow-x: scroll;
+.card-list {
+  height: inherit;
+  width: 100%;
+
+  overflow-x: scroll;
 }

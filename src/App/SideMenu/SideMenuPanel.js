@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function SideMenuPanel() {
-  return (
-    <div>SideMenuPanel</div>
-  )
+  return <div>SideMenuPanel</div>;
 }
 
-export default SideMenuPanel
+export default SideMenuPanel;

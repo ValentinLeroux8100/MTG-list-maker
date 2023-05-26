@@ -1,99 +1,97 @@
 @use "style/Abstract/utils.scss" as *;
 
-.side-menu{
-    background-color: #222;
-    border-right: 1px solid #000;
+.side-menu {
+  background-color: #222;
+  border-right: 1px solid #000;
 
-    position: sticky;
+  position: sticky;
 
-    z-index: 2;
-    
-    left: 0;
-    width: 400px;
+  z-index: 2;
 
-    list-style: none;
-    
-    overflow-y: clip;
-    
-    transition: 
-        margin-left 0.2s ease-in-out, 
-        left 0.2s ease-in-out;
+  left: 0;
+  width: 400px;
 
-    &.hide{
-        margin-left: calc((-400px/5)*4);
-        left: calc((-400px/5)*4);
+  list-style: none;
+
+  overflow-y: clip;
+
+  transition: margin-left 0.2s ease-in-out, left 0.2s ease-in-out;
+
+  &.hide {
+    margin-left: calc((-400px / 5) * 4);
+    left: calc((-400px / 5) * 4);
+  }
+
+  &-nav {
+    display: grid;
+    grid-template: {
+      columns: repeat(5, 20%);
+    }
+    > li {
+      @include center-flex();
     }
 
-    &-nav{
-        display: grid;
-        grid-template: {
-            columns: repeat(5, 20%);
-        }
-        > li{
-            @include center-flex();
-        }
-        
-        &-button{
-            @include center-flex();
-            @include prevent-select();
+    &-button {
+      @include center-flex();
+      @include prevent-select();
 
-            transition: {
-                property: border-bottom;
-                duration: 0.2s;
-                timing-function: ease-in-out;
-            }
+      transition: {
+        property: border-bottom;
+        duration: 0.2s;
+        timing-function: ease-in-out;
+      }
 
-            background-color: #444;
+      background-color: #444;
 
-            width: 100%;
+      width: 100%;
 
-            border: { 
-                style: solid;
-                width: 1px;
-                color: #000;
-                radius: 10% 10% 0 0;
-                right: 0px solid #000;
-            }
+      border: {
+        style: solid;
+        width: 1px;
+        color: #000;
+        radius: 10% 10% 0 0;
+        right: 0px solid #000;
+      }
 
-            &.selected{
-                border-bottom: 1px solid #444;
-            }
+      &.selected {
+        border-bottom: 1px solid #444;
+      }
 
-            aspect-ratio: 1 / 1;
-        }
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  &-panel {
+    &-header {
+      padding-bottom: 5px;
+      border-bottom: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
 
-    &-panel{
-        &-header{
-            padding-bottom: 5px;
-            border-bottom: 1px solid black;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+    height: 100%;
 
-        height:100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        
-        background-color: #444;
+    background-color: #444;
 
-        &-search-bar, &-sub-menu{
-            width: 95%;
+    &-search-bar,
+    &-sub-menu {
+      width: 95%;
 
-            margin: {
-                top: 5px;
-            }
-        }
-
-        &-sub-menu {
-            gap: 12px;
-            display: flex;
-            flex-direction: row;
-        }
-
+      margin: {
+        top: 5px;
+      }
     }
+
+    &-sub-menu {
+      gap: 12px;
+      display: flex;
+      flex-direction: row;
+    }
+  }
 }
