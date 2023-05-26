@@ -1,7 +1,8 @@
+import React, { forwardRef } from "react"
+import PropTypes from 'prop-types'
 import "./SelectBoxInput.scss"
-import { forwardRef } from "react"
 
-const SelectBoxInput = forwardRef(function SelectBoxInput({name, onChange, id, option, isMultiple, children}, ref){
+const SelectBoxInput = forwardRef(function SelectBoxInput({name, id, option, isMultiple, onChange}, ref){
   return(
     <select ref={ref} className="select-box-input" name={name} id={id} onChange={onChange} multiple={isMultiple}>
       {option.map((value) => {
@@ -10,5 +11,13 @@ const SelectBoxInput = forwardRef(function SelectBoxInput({name, onChange, id, o
     </select>
   )
 })
+
+SelectBoxInput.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  option: PropTypes.array,
+  isMultiple: PropTypes.bool,
+  onChange: PropTypes.func,
+}
 
 export default SelectBoxInput

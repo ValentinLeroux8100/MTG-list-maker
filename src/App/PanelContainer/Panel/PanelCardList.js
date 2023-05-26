@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import PropTypes from "prop-types"
 import CardList from 'Component/Card/CardList'
 import { DataContext } from "App/App"
 
@@ -21,10 +22,18 @@ function Content({id}) {
   )
 }
 
+Content.propTypes = {
+  id: PropTypes.string
+}
+
 function Param({id}) {
   return (
     <div>need implementation</div>
   )
+}
+
+Param.propTypes = {
+  id: PropTypes.string
 }
 
 const addCardToList = (data, action) => {

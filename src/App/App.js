@@ -39,7 +39,6 @@ function App(){
         dispatch({type:"addPanel", panelType:"list"})
         dispatch({type:"addPanel", panelType:"list"})
         dispatch({type:"removePanel", panelId:"panel-0"})
-        
     }, [])
 
     return(

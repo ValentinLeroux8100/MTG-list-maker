@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import PropTypes from "prop-types"
 import CardElement from './CardElement'
 import {Droppable, Draggable } from 'react-beautiful-dnd'
 import { DataContext } from "App/App"
@@ -52,6 +53,12 @@ function CardList({id, cards, displayCount = true}) {
     )}
     </Droppable>
   )
+}
+
+CardList.propTypes = {
+  id: PropTypes.string, 
+  cards: PropTypes.array, 
+  displayCount: PropTypes.bool
 }
 
 export default CardList

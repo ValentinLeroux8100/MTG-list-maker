@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect, useContext} from 'react'
+import React, {useState, useRef, useEffect, useContext} from 'react'
 import SideMenuIcon from './SideMenuIcon';
 import SearchBar from "Component/SearchBar/SearchBar";
 import SelectBoxInput from 'Component/SelectBoxInput/SelectBoxInput';
@@ -19,11 +19,6 @@ function SideMenu() {
   const [sortValue, setSortValue] = useState("")
   const [orderValue, setOrderValue] = useState("")
 
-  const sortOption = [
-    "Name", "Set", "Released", "Rarity", "Color", "Usd", "Tix", 
-    "Eur", "Cmc", "Power", "Toughness", "Edhrec", "Penny", "Artist", "Review"]
-
-  const orderOption = ["Auto", "Asc", "Desc"]
     
   const hide = () => {
     setHideState((hideState) => (!hideState))
@@ -31,45 +26,53 @@ function SideMenu() {
     sideMenuRef.current.className = 'side-menu ' + (hideState?"":"hide")
   }
 
-
-  const searchCards = (request) => {
-    const sort = sortOption[sortValue]?.toLowerCase();
-    const order = orderOption[orderValue]?.toLowerCase();
-
-    if(request != ""){
-      fetch(
-        "https://api.scryfall.com/cards/search"+
-          "?order="+sort+
-          "&dir="+order+
-          "&q="+request)
-        .then(result => result.json())
-        .then(json => updateCardData(json))
-    }
-  }
-
   const [resultCard, setResultCard] = useState([])
   const data = useContext(DataContext)
 
-  const updateCardData = (result) => {
-    setResultCard([])
-
-    result.data?.map((element) => {
-
-      const cardData = {
-        [element.id]: {
-          ...element,
-        }
-      }
-
-      data.dispatch({type:"addCardData", cardData: cardData})
-      
-      setResultCard((prevState) => [...prevState,{id: element.id, cardId: element.id, count: 2}])
-    })
-  }
-
   useEffect(() => {
+    const sortOption = [
+      "Name", "Set", "Released", "Rarity", "Color", "Usd", "Tix", 
+      "Eur", "Cmc", "Power", "Toughness", "Edhrec", "Penny", "Artist", "Review"]
+
+    const orderOption = ["Auto", "Asc", "Desc"]
+    
+    const searchCards = (request) => {
+      const sort = sortOption[sortValue]?.toLowerCase();
+      const order = orderOption[orderValue]?.toLowerCase();
+
+      if(request != ""){
+        fetch(
+          "https://api.scryfall.com/cards/search"+
+            "?order="+sort+
+            "&dir="+order+
+            "&q="+request)
+          .then(result => result.json())
+          .then(json => updateCardData(json))
+      }
+    }
+
+    const updateCardData = (result) => {
+      setResultCard([])
+
+      result.data?.map((element) => {
+
+        const cardData = {
+          [element.id]: {
+            ...element,
+          }
+        }
+
+        data.dispatch({type:"addCardData", cardData: cardData})
+
+        const newCard = {id: element.id, cardId: element.id, count: 2} 
+
+        setResultCard((prevState) => [...prevState, newCard])
+      })
+    }
+
     const timer = setTimeout(() => { searchCards(searchValue) }, 2000);
     return () => clearTimeout(timer);
+
   }, [searchValue, sortValue, orderValue])
 
   const requestCard = (event) =>{

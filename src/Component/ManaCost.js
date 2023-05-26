@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 function importAll(r) {
   let images = {};
@@ -21,6 +22,10 @@ function ManaCost({cost}) {
       }
     </div>
   )
+}
+
+ManaCost.propTypes = {
+  cost: PropTypes.string
 }
 
 export default ManaCost

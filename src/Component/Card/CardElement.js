@@ -1,4 +1,5 @@
 import React, {forwardRef, useState, useRef, useEffect} from 'react'
+import PropTypes from "prop-types"
 import cardNumberBackground from "graphics/Card Number Background.svg";
 import ManaCost from '../ManaCost';
 
@@ -10,6 +11,11 @@ function CardImage({link, ...other}){
     />
   )
 }
+
+CardImage.propTypes = {
+  link: PropTypes.string
+}
+
 
 const CardBox = forwardRef(function CardBox({card, count, displayCount, manaCost}, titleRef){
   return(
@@ -32,6 +38,13 @@ const CardBox = forwardRef(function CardBox({card, count, displayCount, manaCost
     </>
   )
 })
+
+CardBox.propTypes = {
+  card: PropTypes.object, 
+  count: PropTypes.number, 
+  displayCount: PropTypes.bool, 
+  manaCost: PropTypes.string,
+}
 
 function CardElement({card, count, provider, index, displayCount}) {
   const [MousePosition, setMousePosition] = useState({
@@ -79,7 +92,7 @@ function CardElement({card, count, provider, index, displayCount}) {
     cardFaces.push(card.info.card_faces[0].image_uris?.normal)
     cardFaces.push(card.info.card_faces[1].image_uris?.normal)
     manaCost = card.info.card_faces[0].mana_cost
-    colors = card.info.card_faces[0].colors.map(e => classColor[e])
+    colors = card.info.card_faces[0].colors?.map(e => classColor[e])
   }else{
     cardFaces.push(card.info["image_uris"]?.normal)
     manaCost = card.info["mana_cost"]
@@ -97,7 +110,7 @@ function CardElement({card, count, provider, index, displayCount}) {
 
         onMouseEnter={UpdatePosition}
       > 
-        <div ref={cardBoxRef} className={'card ' + colors.join(' ')} style={boxStyle}>
+        <div ref={cardBoxRef} className={'card ' + colors?.join(' ')} style={boxStyle}>
           <CardBox ref={cardTitleRef} card={card} count={count} displayCount={displayCount} manaCost={manaCost}/>
         </div>
 
@@ -108,12 +121,20 @@ function CardElement({card, count, provider, index, displayCount}) {
               top:  MousePosition.top + "px" 
             }
             
-            return (<CardImage link={e} style={imageStyle}/>)
+            return (<CardImage key={index} link={e} style={imageStyle}/>)
           })}
         </div>
       </div>
     )
   )
+}
+
+CardElement.propTypes = {
+  card: PropTypes.object, 
+  count: PropTypes.number, 
+  provider: PropTypes.object, 
+  index: PropTypes.number, 
+  displayCount: PropTypes.bool
 }
 
 export default CardElement

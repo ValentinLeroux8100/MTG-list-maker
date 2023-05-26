@@ -1,6 +1,7 @@
+import React from 'react'
+import PropTypes from "prop-types"
 import * as PanelCardList from "./PanelCardList";
 import BasicDataAction from "./PanelDataAction"
-import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
 import "./Panel.scss";
@@ -14,11 +15,9 @@ const PanelDataAction = {
   ...PanelCardList.DataManagement
 }
 
-function Panel({id, index, type, children}) {
+function Panel({id, index, type}) {
   const isTypeExist = Object.keys(PanelInfo).find(element => element == type) != undefined
   const SpecificPanel = (isTypeExist)?PanelInfo[type].content:""
-
-  console.log(index);
 
   return (
       <>
@@ -44,5 +43,10 @@ function Panel({id, index, type, children}) {
   )
 }
 
+Panel.propTypes = {
+  id: PropTypes.string, 
+  index: PropTypes.number, 
+  type: PropTypes.string
+}
 
 export { Panel, PanelInfo, PanelDataAction}
