@@ -3,11 +3,8 @@ import PropsType from "prop-types";
 
 function SideMenuIcon({ selected, onClick, children }) {
   return (
-    <li>
-      <a
-        onClick={onClick}
-        className={"side-menu-nav-button " + (selected ? "selected" : "")}
-      >
+    <li onClick={onClick}>
+      <a className={"side-menu-nav-button " + (selected ? "selected" : "")}>
         {children}
       </a>
     </li>

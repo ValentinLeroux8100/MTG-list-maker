@@ -1,10 +1,10 @@
-import { React, useState, createContext, useReducer, useEffect } from "react";
-
+import { React, createContext, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 
 import PanelContainer from "./PanelContainer/PanelContainer";
 import SideMenu from "./SideMenu/SideMenu";
-import { useData } from "./useData";
+
+import { useData } from "./Hook";
 
 import "./Style.scss";
 
@@ -17,16 +17,13 @@ function App() {
     const { destination, source, draggableId, type } = result;
     const cardInfo = { destination, source, draggableId };
 
-    if (!destination) {
-      return;
-    }
+    if (!destination) return;
 
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
-    ) {
+    )
       return;
-    }
 
     switch (type) {
       case "column": {
@@ -51,6 +48,7 @@ function App() {
     dispatch({ type: "addPanel", panelType: "list" });
     dispatch({ type: "addPanel", panelType: "list" });
     dispatch({ type: "addPanel", panelType: "list" });
+    dispatch({ type: "renamePanel", panelId: "panel-1", panelTitle: "oui" });
     dispatch({ type: "removePanel", panelId: "panel-0" });
   }, []);
 

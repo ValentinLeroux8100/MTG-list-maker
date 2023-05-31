@@ -5,12 +5,23 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import { DataContext } from "App/App";
 import "./Card.scss";
 
-function CardList({ id, cards, displayCount = true, isDropDisabled = false }) {
+function CardList({
+  id,
+  cards,
+  isDisplayCount = true,
+  isDropDisabled = false,
+  isVirtual = false,
+}) {
   const data = useContext(DataContext);
   const cardsData = data.data.cardsData;
 
   return (
-    <Droppable droppableId={id} type="card" isDropDisabled={isDropDisabled}>
+    <Droppable
+      droppableId={id}
+      type="card"
+      isDropDisabled={isDropDisabled}
+      mode={isVirtual ? "virtual" : ""}
+    >
       {(provider) => (
         <div
           {...provider.droppableProps}
@@ -18,17 +29,21 @@ function CardList({ id, cards, displayCount = true, isDropDisabled = false }) {
           className="card-list"
         >
           {cards.map((card, index) => {
-            const cardId = card.cardId;
-            const cardData = {
+            const data = {
               id: card.id,
-              info: cardsData[cardId],
+              info: cardsData[card.cardId],
               count: card.count,
+            };
+            const props = {
+              index: index,
+              card: data,
+              isDisplayCount: isDisplayCount,
             };
 
             return (
               <Draggable key={card.id} draggableId={card.id} index={index}>
                 {(dragProvider, dragSnapshot) => {
-                  let count = cardData.count;
+                  let count = data.count;
 
                   if (dragSnapshot.isDragging) {
                     count -= 1;
@@ -37,20 +52,13 @@ function CardList({ id, cards, displayCount = true, isDropDisabled = false }) {
                   return (
                     <>
                       <CardElement
-                        index={index}
-                        card={cardData}
                         provider={dragProvider}
-                        count={dragSnapshot.isDragging ? 1 : cardData.count}
-                        displayCount={displayCount}
+                        count={dragSnapshot.isDragging ? 1 : data.count}
+                        {...props}
                       />
 
                       {dragSnapshot.isDragging && count > 0 && (
-                        <CardElement
-                          index={index}
-                          card={cardData}
-                          count={count}
-                          displayCount={displayCount}
-                        />
+                        <CardElement count={count} {...props} />
                       )}
                     </>
                   );
@@ -69,8 +77,9 @@ function CardList({ id, cards, displayCount = true, isDropDisabled = false }) {
 CardList.propTypes = {
   id: PropTypes.string,
   cards: PropTypes.array,
-  displayCount: PropTypes.bool,
+  isDisplayCount: PropTypes.bool,
   isDropDisabled: PropTypes.bool,
+  isVirtual: PropTypes.bool,
 };
 
 export default CardList;

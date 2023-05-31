@@ -1,0 +1,27 @@
+{
+  "order": [
+    "Name",
+    "Set",
+    "Released",
+    "Rarity",
+    "Color",
+    "Usd",
+    "Tix",
+    "Eur",
+    "Cmc",
+    "Power",
+    "Toughness",
+    "Edhrec",
+    "Penny",
+    "Artist",
+    "Review"
+  ],
+  "dir": ["Auto", "Asc", "Desc"],
+  "classColor": {
+    "W": "white",
+    "U": "blue",
+    "B": "black",
+    "R": "red",
+    "G": "green"
+  }
+}

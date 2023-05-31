@@ -11,7 +11,7 @@ function importAll(r) {
 
 function ManaCost({ cost }) {
   const images = importAll(
-    require.context("graphics/mana_symbol", false, /\.(png|jpe?g|svg)$/)
+    require.context("Graphics/mana_symbol", false, /\.(png|jpe?g|svg)$/)
   );
 
   const list_cost = cost

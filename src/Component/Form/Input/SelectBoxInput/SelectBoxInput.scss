@@ -1,18 +1,23 @@
-@use "style/Abstract/Abstract.scss" as *;
+@use "Style/Abstract/Abstract.scss" as *;
 
 .select-box-input {
-  padding: 10px;
+  padding: {
+    left: 16px;
+    right: 16px;
+    top: 10px;
+    bottom: 10px;
+  }
   width: inherit;
-  background-color: #222;
+  background-color: $backgroundColor;
 
-  color: white;
+  color: $whiteColor;
 
   -webkit-appearance: none;
   -moz-appearance: none;
 
   background: {
-    image: url("/graphics/Select\ Icon.svg");
-    position: right 6px center;
+    image: url("/Graphics/Select\ Icon.svg");
+    position: right 16px center;
     size: 10px 15px;
     repeat: no-repeat;
   }

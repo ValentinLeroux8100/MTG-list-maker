@@ -1,7 +1,8 @@
-@use "style/Abstract/abstract.scss" as *;
+@use "Style/Abstract/abstract.scss" as *;
 
 body {
   overflow-y: hidden;
+  background-color: $backgroundColor;
 }
 
 * {
@@ -15,7 +16,7 @@ main {
 
   display: flex;
 
-  background-color: darkgray;
+  background-color: $backgroundColor;
 
   font-family: "Beleren";
 }

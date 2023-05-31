@@ -1,9 +1,14 @@
-@use "style/Abstract/Abstract.scss" as *;
+@use "Style/Abstract/abstract.scss" as *;
 
 .search-bar {
   height: min-content;
   width: inherit;
-  padding: 10px;
+  padding: {
+    left: 16px;
+    right: 16px;
+    top: 10px;
+    bottom: 10px;
+  }
 
   display: grid;
 
@@ -13,19 +18,19 @@
 
   align-items: center;
 
-  background-color: #222;
+  background-color: $backgroundColor;
 
   border: {
     style: solid;
     width: 1px;
     color: #000;
-    radius: 20px;
+    radius: 25px;
   }
 
   > input {
     background-color: #0000;
     border: 0px;
-    color: white;
+    color: $whiteColor;
 
     font: {
       family: "Coolvetica";
@@ -37,7 +42,7 @@
     }
 
     &::placeholder {
-      color: #666;
+      color: $placeholderColor;
       @include prevent-select();
     }
   }

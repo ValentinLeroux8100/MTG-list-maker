@@ -1,64 +1,51 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import SideMenuIcon from "./SideMenuIcon";
-import { DataContext } from "App/App";
+
 import CardList from "Component/Card/CardList";
 import CustomForm from "Component/Form/CustomForm";
 
-const sortOption = [
-  "Name",
-  "Set",
-  "Released",
-  "Rarity",
-  "Color",
-  "Usd",
-  "Tix",
-  "Eur",
-  "Cmc",
-  "Power",
-  "Toughness",
-  "Edhrec",
-  "Penny",
-  "Artist",
-  "Review",
-];
+import { DataContext } from "App/App";
+import { useScryfallApi } from "App/Hook";
 
-const orderOption = ["Auto", "Asc", "Desc"];
+import SideMenuIcon from "../SideMenuIcon";
+import config from "config.json";
 
 const form = {
   part1: {
     input: [
       {
         name: "search",
-        id: "search",
+        id: "q",
         type: "SearchBar",
-        placeholder: "oui",
+        placeholder: "Search for Magic cards...",
       },
     ],
   },
   part2: {
     input: [
       {
-        name: "sort",
-        id: "sort",
-        type: "SelectBoxInput",
-        multiple: false,
-        option: sortOption,
-      },
-      {
         name: "order",
         id: "order",
         type: "SelectBoxInput",
         multiple: false,
-        option: orderOption,
+        option: config.order,
+      },
+      {
+        name: "dir",
+        id: "dir",
+        type: "SelectBoxInput",
+        multiple: false,
+        option: config.dir,
       },
     ],
   },
 };
 
-function SideMenuSearch() {
+function SideMenuSearch({ isVisible = true }) {
   const [request, setRequest] = useState({});
   const [resultCard, setResultCard] = useState([]);
+
+  const [sendRequest, setMethod] = useScryfallApi("cards/search");
 
   const data = useContext(DataContext);
 
@@ -81,54 +68,42 @@ function SideMenuSearch() {
   };
 
   useEffect(() => {
-    const searchCards = () => {
-      const sort = sortOption
-        .find((sort) => sort == request.sort)
-        ?.toLowerCase();
-      const order = orderOption
-        .find((order) => order == request.order)
-        ?.toLowerCase();
-
-      if (request?.search) {
-        fetch(
-          "https://api.scryfall.com/cards/search" +
-            "?order=" +
-            sort +
-            "&dir=" +
-            order +
-            "&q=" +
-            request.search
-        )
-          .then((result) => result.json())
-          .then((json) => updateCardData(json));
-      }
-    };
-
     const timer = setTimeout(() => {
-      searchCards();
+      if (request.q) sendRequest(request, updateCardData);
     }, 2000);
     return () => clearTimeout(timer);
   }, [request]);
 
+  const className = "side-menu-panel " + (isVisible ? "" : "hide");
+
   return (
-    <div className="side-menu-panel">
+    <div className={className}>
       <CustomForm form={form} onChange={setRequest} />
       <CardList
         id={"search"}
         cards={resultCard}
-        displayCount={false}
+        isDisplayCount={false}
         isDropDisabled={true}
+        isVirtual={false}
       ></CardList>
     </div>
   );
 }
+SideMenuSearch.propTypes = {
+  isVisible: PropTypes.bool,
+};
 
-function SideIconSearch({ selected = true }) {
-  return <SideMenuIcon selected={selected}>Search</SideMenuIcon>;
+function SideIconSearch({ selected = false, onClick }) {
+  return (
+    <SideMenuIcon selected={selected} onClick={onClick}>
+      Search
+    </SideMenuIcon>
+  );
 }
 
 SideIconSearch.propTypes = {
   selected: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export { SideMenuSearch, SideIconSearch };

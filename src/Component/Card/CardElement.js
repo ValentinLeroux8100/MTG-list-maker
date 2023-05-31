@@ -1,54 +1,9 @@
-import React, { forwardRef, useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import cardNumberBackground from "graphics/Card Number Background.svg";
-import ManaCost from "../ManaCost";
+import CardImage from "./CardImage";
+import CardBox from "./CardBox";
 
-function CardImage({ link, ...other }) {
-  return <img className="card-image" src={link} {...other} />;
-}
-
-CardImage.propTypes = {
-  link: PropTypes.string,
-};
-
-const CardBox = forwardRef(function CardBox(
-  { card, count, displayCount, manaCost },
-  titleRef
-) {
-  return (
-    <>
-      {displayCount && (
-        <div className="card-number">
-          <img
-            src={cardNumberBackground}
-            alt="cardNumberBackground"
-            className="card-number-background"
-          />
-          <div className="card-number-text">{count}x</div>
-        </div>
-      )}{" "}
-      <div className="card-back">
-        <div className="card-mid">
-          <div className="card-top">
-            <div ref={titleRef} className="card-title">
-              <div className="card-title-content">{card.info.name}</div>
-            </div>
-            <ManaCost cost={manaCost} />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-});
-
-CardBox.propTypes = {
-  card: PropTypes.object,
-  count: PropTypes.number,
-  displayCount: PropTypes.bool,
-  manaCost: PropTypes.string,
-};
-
-function CardElement({ card, count, provider, index, displayCount }) {
+function CardElement({ card, count, provider, index, isDisplayCount }) {
   const [MousePosition, setMousePosition] = useState({
     right: 0,
     top: 0,
@@ -124,7 +79,7 @@ function CardElement({ card, count, provider, index, displayCount }) {
           ref={cardTitleRef}
           card={card}
           count={count}
-          displayCount={displayCount}
+          isDisplayCount={isDisplayCount}
           manaCost={manaCost}
         />
       </div>
@@ -149,7 +104,7 @@ CardElement.propTypes = {
   count: PropTypes.number,
   provider: PropTypes.object,
   index: PropTypes.number,
-  displayCount: PropTypes.bool,
+  isDisplayCount: PropTypes.bool,
 };
 
 export default CardElement;

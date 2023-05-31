@@ -1,7 +1,6 @@
 import { PanelInfo } from ".";
 
 const addPanel = (data, action) => {
-  
   if (action.panelType) {
     const panelId = "panel-" + Object.keys(data.panel).length;
     return {
@@ -42,10 +41,16 @@ const movePanel = (data, action) => {
   return { ...data, panelOrder: newOrder };
 };
 
+const renamePanel = (data, action) => {
+  data.panel[action.panelId].title = action.panelTitle;
+  return { ...data };
+};
+
 const action = {
   addPanel: addPanel,
   removePanel: removePanel,
   movePanel: movePanel,
+  renamePanel: renamePanel,
 };
 
 export default action;

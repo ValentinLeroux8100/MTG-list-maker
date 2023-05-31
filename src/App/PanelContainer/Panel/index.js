@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import * as PanelCardList from "./PanelCardList";
 import BasicDataAction from "./PanelDataAction";
@@ -15,7 +15,13 @@ const PanelDataAction = {
   ...PanelCardList.DataManagement,
 };
 
-function Panel({ id, index, type }) {
+function Panel({ id, index, type, data }) {
+  const titleRef = useRef();
+
+  useEffect(() => {
+    console.log((titleRef.current.value = data.title));
+  }, []);
+
   const isTypeExist =
     Object.keys(PanelInfo).find((element) => element == type) != undefined;
   const SpecificPanel = isTypeExist ? PanelInfo[type].content : "";
@@ -35,7 +41,7 @@ function Panel({ id, index, type }) {
                   {...provider.dragHandleProps}
                   className="box-selector"
                 ></div>
-                <h1>{id}</h1>
+                <input className="panel-header-input" ref={titleRef}></input>
               </header>
 
               <SpecificPanel id={id}></SpecificPanel>
@@ -53,6 +59,7 @@ Panel.propTypes = {
   id: PropTypes.string,
   index: PropTypes.number,
   type: PropTypes.string,
+  data: PropTypes.object,
 };
 
 export { Panel, PanelInfo, PanelDataAction };

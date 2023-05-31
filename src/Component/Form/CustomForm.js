@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import InputType from "./Input";
 import "./CustomForm.scss";
 
-//{form[panel]?.name ? <div>{form[panel].name}</div> : ""}
 function CustomForm({ form, onChange }) {
   const inputRef = useRef([]);
 
   const updateValue = (e) => {
     if (onChange) {
       const res = inputRef.current.reduce((res, input) => {
-        const post = { [input.current.name]: input.current.value };
+        const post = { [input.current.id]: input.current.value };
         return { ...res, ...post };
       }, {});
       onChange(res);
@@ -31,6 +30,9 @@ function CustomForm({ form, onChange }) {
   return (
     <form className="custom-form">
       {Object.keys(form).map((panel, panelIndex) => {
+        {
+          form[panel]?.name ? <div>{form[panel].name}</div> : "";
+        }
         return (
           <div key={"panel" + panelIndex} className="custom-form-container">
             {form[panel].input.map((input) => {
