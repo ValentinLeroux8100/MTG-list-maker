@@ -8,31 +8,45 @@ import "./SideMenu.scss";
 function SideMenu() {
   const sideMenuRef = useRef();
   const [hideState, setHideState] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(true);
+  const [selectedMenu, setSelectedMenu] = useState(0);
 
   const hide = () => {
     setHideState((hideState) => !hideState);
     sideMenuRef.current.className = "side-menu " + (hideState ? "" : "hide");
   };
 
-  const test = () => {
-    setSelectedMenu((value) => !value);
+  const test = (event) => {
+    console.log(event);
+    setSelectedMenu((value) => (value + 1) % 4);
   };
 
+  const t = [
+    { icon: SideIconSearch, panel: SideMenuSearch },
+    { icon: SideIconSave, panel: SideMenuSave },
+    { icon: SideIconSave, panel: SideMenuSave },
+    { icon: SideIconSave, panel: SideMenuSave },
+  ];
+
+  const selected = 0;
+
   return (
-    <menu ref={sideMenuRef} className="side-menu">
-      <nav className="side-menu-nav">
-        <SideIconSearch onClick={test} selected={selectedMenu} />
-        <SideIconSave onClick={test} selected={!selectedMenu} />
-        <SideMenuIcon onClick={hide} selected={hideState ? true : false}>
-          {hideState ? ">" : "<"}
-        </SideMenuIcon>
-      </nav>
-      <div className="side-menu-container">
-        <SideMenuSearch isVisible={selectedMenu} />
-        <SideMenuSave isVisible={!selectedMenu} />
+    <aside ref={sideMenuRef} className="side-menu">
+      <div className={"side-menu-hide "}>
+        <button onClick={hide}>{!hideState ? ">" : "<"}</button>
       </div>
-    </menu>
+      <menu className={"side-menu-nav " + (!hideState ? "" : "hide")}>
+        <SideIconSearch onClick={test} selected={selectedMenu == 0} />
+        <SideIconSave onClick={test} selected={selectedMenu == 1} />
+        <SideIconSave onClick={test} selected={selectedMenu == 2} />
+        <SideIconSave onClick={test} selected={selectedMenu == 3} />
+      </menu>
+      <menu className={"side-menu-container " + (!hideState ? "" : "hide")}>
+        <SideMenuSearch isVisible={selectedMenu == 0} />
+        <SideMenuSave isVisible={selectedMenu == 1} />
+        <SideMenuSave isVisible={selectedMenu == 2} />
+        <SideMenuSave isVisible={selectedMenu == 3} />
+      </menu>
+    </aside>
   );
 }
 

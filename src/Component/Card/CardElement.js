@@ -2,8 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import CardImage from "./CardImage";
 import CardBox from "./CardBox";
+import "./CardElement.scss";
 
-function CardElement({ card, count, provider, index, isDisplayCount }) {
+function CardElement({
+  card,
+  count,
+  provider,
+  index,
+  isDisplayCount,
+  isDisplay = true,
+}) {
   const [MousePosition, setMousePosition] = useState({
     right: 0,
     top: 0,
@@ -69,6 +77,7 @@ function CardElement({ card, count, provider, index, isDisplayCount }) {
       {...provider?.dragHandleProps}
       ref={provider?.innerRef}
       onMouseEnter={UpdatePosition}
+      className={!isDisplay ? "noDisplay" : ""}
     >
       <div
         ref={cardBoxRef}
@@ -105,6 +114,7 @@ CardElement.propTypes = {
   provider: PropTypes.object,
   index: PropTypes.number,
   isDisplayCount: PropTypes.bool,
+  isDisplay: PropTypes.bool,
 };
 
 export default CardElement;

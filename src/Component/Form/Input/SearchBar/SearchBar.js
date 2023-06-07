@@ -6,7 +6,7 @@ const SearchBar = forwardRef(function SearchBar({ ...props }, ref) {
   return (
     <div className="search-bar">
       <input ref={ref} {...props} />
-      <img src={searchIcon}></img>
+      <img className={"search-icon"} src={searchIcon}></img>
     </div>
   );
 });

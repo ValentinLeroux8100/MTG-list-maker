@@ -50,6 +50,7 @@ function SideMenuSearch({ isVisible = true }) {
   const data = useContext(DataContext);
 
   const updateCardData = (result) => {
+    console.log(result);
     setResultCard([]);
 
     result.data?.map((element) => {
@@ -77,25 +78,25 @@ function SideMenuSearch({ isVisible = true }) {
   const className = "side-menu-panel " + (isVisible ? "" : "hide");
 
   return (
-    <div className={className}>
+    <li className={className}>
       <CustomForm form={form} onChange={setRequest} />
       <CardList
         id={"search"}
         cards={resultCard}
         isDisplayCount={false}
         isDropDisabled={true}
-        isVirtual={false}
+        isVirtual={true}
       ></CardList>
-    </div>
+    </li>
   );
 }
 SideMenuSearch.propTypes = {
   isVisible: PropTypes.bool,
 };
 
-function SideIconSearch({ selected = false, onClick }) {
+function SideIconSearch({ selected = false, ...props }) {
   return (
-    <SideMenuIcon selected={selected} onClick={onClick}>
+    <SideMenuIcon selected={selected} {...props}>
       Search
     </SideMenuIcon>
   );

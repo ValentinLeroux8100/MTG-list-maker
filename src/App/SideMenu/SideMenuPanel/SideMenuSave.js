@@ -23,17 +23,19 @@ function SideMenuSave({ isVisible = true }) {
   const className = "side-menu-panel " + (isVisible ? "" : "hide");
 
   return (
-    <div className={className}>
+    <li className={className}>
       <div className="side-menu-panel-sub-menu">
         <button type="file" className="side-menu-button" onClick={save}>
-          <img src={searchIcon}></img>Save
+          <img src={searchIcon}></img>
+          Save
         </button>
         <label className="side-menu-button">
           <input type="file" onChange={load} />
-          <img src={searchIcon}></img>Load
+          <img src={searchIcon}></img>
+          Load
         </label>
       </div>
-    </div>
+    </li>
   );
 }
 SideMenuSave.propTypes = {

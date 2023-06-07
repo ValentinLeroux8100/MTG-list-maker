@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import CardElement from "./CardElement";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { DataContext } from "App/App";
-import "./Card.scss";
+import "./CardList.scss";
 
 function CardList({
   id,
@@ -20,7 +20,7 @@ function CardList({
       droppableId={id}
       type="card"
       isDropDisabled={isDropDisabled}
-      mode={isVirtual ? "virtual" : ""}
+      mode={isVirtual ? "" : ""}
     >
       {(provider) => (
         <div
@@ -58,7 +58,11 @@ function CardList({
                       />
 
                       {dragSnapshot.isDragging && count > 0 && (
-                        <CardElement count={count} {...props} />
+                        <CardElement
+                          count={count}
+                          {...props}
+                          isDisplay={false}
+                        />
                       )}
                     </>
                   );

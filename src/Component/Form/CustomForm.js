@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import InputType from "./Input";
 import "./CustomForm.scss";
 
-function CustomForm({ form, onChange }) {
+function CustomForm({ form, onChange, ...props }) {
   const inputRef = useRef([]);
 
   const updateValue = (e) => {
@@ -25,29 +25,31 @@ function CustomForm({ form, onChange }) {
     .fill()
     .map((_, i) => inputRef[i] || createRef());
 
-  let index = -1;
+  let index = 0;
 
   return (
-    <form className="custom-form">
+    <form className="form" {...props}>
       {Object.keys(form).map((panel, panelIndex) => {
-        {
-          form[panel]?.name ? <div>{form[panel].name}</div> : "";
-        }
         return (
-          <div key={"panel" + panelIndex} className="custom-form-container">
-            {form[panel].input.map((input) => {
-              const Type = InputType[input.type] || "input";
-              index++;
-              return (
-                <Type
-                  key={input.name}
-                  ref={inputRef.current[index]}
-                  onChange={updateValue}
-                  {...input}
-                />
-              );
-            })}
-          </div>
+          <>
+            {form[panel].name && <fieldset>{form[panel].name}</fieldset>}
+            <section key={"panel" + panelIndex}>
+              {form[panel].input.map((input) => {
+                const Type = InputType[input.type] || "input";
+
+                const props = {
+                  key: input.name,
+                  ref: inputRef.current[index],
+                  onChange: updateValue,
+                  ...input,
+                };
+
+                index++;
+
+                return <Type {...props} />;
+              })}
+            </section>
+          </>
         );
       })}
     </form>

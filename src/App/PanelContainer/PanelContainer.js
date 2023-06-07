@@ -8,7 +8,7 @@ function PanelContainer() {
   const data = useContext(DataContext);
 
   return (
-    <>
+    <div className="window">
       <Droppable droppableId="all-panel" direction="horizontal" type="column">
         {(provider) => (
           <section {...provider.droppableProps} ref={provider.innerRef}>
@@ -32,17 +32,17 @@ function PanelContainer() {
           </section>
         )}
       </Droppable>
-      <div className="panel-add">
-        <div className="panel-add-container">
-          <a className="panel-add-container-button">
+      <aside className="panel-add">
+        <menu className="panel-add-container">
+          <button>
             <img src={listIcon}></img>
-          </a>
-          <a className="panel-add-container-button">a</a>
-          <a className="panel-add-container-button">a</a>
-          <a className="panel-add-container-button">a</a>
-        </div>
-      </div>
-    </>
+          </button>
+          <button>a</button>
+          <button>a</button>
+          <button>a</button>
+        </menu>
+      </aside>
+    </div>
   );
 }
 

@@ -5,8 +5,21 @@
   justify-content: center;
 }
 
+@mixin center-grid {
+  display: grid;
+
+  align-items: center;
+  justify-content: center;
+}
+
 @mixin prevent-select {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+}
+
+@mixin prevent-appearance {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

@@ -19,7 +19,6 @@ const addCardData = (data, action) => {
 };
 
 const saveData = (data, action) => {
-  console.log(JSON.stringify(data));
   let blob = new Blob([JSON.stringify(data)], { type: "application/json" });
   saveAs(blob, "newDeck.json");
   return data;

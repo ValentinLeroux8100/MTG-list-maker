@@ -14,9 +14,11 @@ function App() {
   const [data, dispatch] = useData();
 
   const onDragEnd = (result) => {
+    console.log(result);
     const { destination, source, draggableId, type } = result;
     const cardInfo = { destination, source, draggableId };
 
+    if (result.reason == "CANCEL") return;
     if (!destination) return;
 
     if (
@@ -45,6 +47,9 @@ function App() {
   };
 
   useEffect(() => {
+    dispatch({ type: "addPanel", panelType: "list" });
+    dispatch({ type: "addPanel", panelType: "list" });
+    dispatch({ type: "addPanel", panelType: "list" });
     dispatch({ type: "addPanel", panelType: "list" });
     dispatch({ type: "addPanel", panelType: "list" });
     dispatch({ type: "addPanel", panelType: "list" });

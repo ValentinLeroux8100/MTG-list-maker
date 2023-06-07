@@ -1,0 +1,49 @@
+@use "Style/Abstract/abstract.scss" as *;
+
+.card {
+  //Sass
+  @include center-flex;
+  @include prevent-select;
+  @include card-color-style;
+
+  //Variable
+  --box-width: 0px;
+
+  //Box model
+  width: 100%;
+
+  //Typo
+  font-family: "Beleren";
+
+  //Pseudo
+  &:hover {
+    ~ div > .card-image {
+      opacity: 100%;
+      visibility: visible;
+    }
+
+    .card-title-content {
+      animation: {
+        name: slidein;
+        duration: 3s;
+        delay: 1s;
+        iteration-count: infinite;
+      }
+    }
+  }
+
+  .mana {
+    //Box model
+    margin-left: 10px;
+
+    //Typo
+    text-align: right;
+  }
+}
+
+.noDisplay {
+  transform: none !important;
+  ~ div {
+    transform: none !important;
+  }
+}

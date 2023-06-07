@@ -1,0 +1,10 @@
+@use "Style/Abstract/abstract.scss" as *;
+
+.card-list {
+  //Clipping
+  overflow-x: scroll;
+
+  //Box model
+  height: inherit;
+  width: 100%;
+}

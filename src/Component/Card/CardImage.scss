@@ -1,0 +1,21 @@
+@use "Style/Abstract/abstract.scss" as *;
+
+.card-image {
+  //Sass
+  @include prevent-select;
+
+  //Position
+  position: absolute;
+  z-index: 1;
+
+  //Display
+  opacity: 0;
+  visibility: hidden;
+
+  //Animation
+  transition: opacity 0.2s 0.2s ease-out, visibility 0.2s 0.2s ease-out;
+
+  //Box model
+  height: 400px;
+  width: auto;
+}

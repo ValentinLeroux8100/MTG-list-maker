@@ -1,12 +1,14 @@
 import React from "react";
 import PropsType from "prop-types";
 
-function SideMenuIcon({ selected, onClick, children }) {
+function SideMenuIcon({ selected, children, ...props }) {
   return (
-    <li onClick={onClick}>
-      <a className={"side-menu-nav-button " + (selected ? "selected" : "")}>
+    <li {...props}>
+      <button
+        className={"side-menu-nav-button " + (selected ? "selected" : "")}
+      >
         {children}
-      </a>
+      </button>
     </li>
   );
 }

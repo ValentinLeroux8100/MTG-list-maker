@@ -1,36 +1,39 @@
 @use "Style/Abstract/Abstract.scss" as *;
 
 .select-box-input {
-  padding: {
-    left: 16px;
-    right: 16px;
-    top: 10px;
-    bottom: 10px;
-  }
+  //SASS
+  @include prevent-appearance;
+
+  //Box model
+  border: 1px solid #000;
+  border-radius: 20px;
+
   width: inherit;
-  background-color: $backgroundColor;
+  padding: 10px 16px;
 
-  color: $whiteColor;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
+  //Background
   background: {
     image: url("/Graphics/Select\ Icon.svg");
     position: right 16px center;
     size: 10px 15px;
     repeat: no-repeat;
+    color: $backgroundColor;
   }
 
+  //Type
   font: {
     family: "Coolvetica";
     size: 1em;
   }
 
-  border: {
-    style: solid;
-    width: 1px;
-    color: #000;
-    radius: 20px;
+  color: $whiteColor;
+
+  //Pseudo
+  &:focus {
+    outline: 2px $mainColor solid;
+  }
+
+  &:focus-visible {
+    outline: 2px $mainColor solid;
   }
 }

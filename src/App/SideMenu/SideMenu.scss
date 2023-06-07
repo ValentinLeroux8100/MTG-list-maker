@@ -2,151 +2,227 @@
 @use "sass:color";
 
 .side-menu {
-  background-color: $backgroundColor;
-  border-right: 1px solid #000;
-
-  position: sticky;
-
-  z-index: 2;
-
-  left: 0;
-  width: 400px;
-
-  list-style: none;
-
-  overflow-y: clip;
-
+  //Animation
   transition: margin-left 0.2s ease-in-out, left 0.2s ease-in-out;
 
+  //Box model
+  margin: 0px 10px 10px 10px;
+  height: calc(100% - 25px);
+  width: 450px;
+  border-radius: 10px;
+
+  //Typo
+  list-style: none;
+
+  //Pseudo
   &.hide {
-    margin-left: calc((-400px / 5) * 4);
-    left: calc((-400px / 5) * 4);
-  }
+    //Position
+    left: calc(-400px + 50px);
 
-  &-nav {
-    display: grid;
-    grid-template: {
-      columns: repeat(5, 20%);
-    }
-    > li {
-      @include center-flex();
-    }
-
-    &-button {
-      @include center-flex();
-      @include prevent-select();
-
-      transition: {
-        property: border-bottom;
-        duration: 0.2s;
-        timing-function: ease-in-out;
-      }
-
-      background-color: $lightBackgroundColor;
-
-      width: 100%;
-
-      border: {
-        style: solid;
-        width: 1px;
-        color: #000;
-        radius: 10% 10% 0 0;
-        right: 0px solid #000;
-      }
-
-      &.selected {
-        border-bottom: 1px solid $lightBackgroundColor;
-      }
-
-      aspect-ratio: 1 / 1;
-    }
-  }
-
-  &-panel {
-    &-header {
-      padding-bottom: 5px;
-      border-bottom: 1px solid black;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    background: linear-gradient(
-      $lightBackgroundColor,
-      color.adjust($lightBackgroundColor, $lightness: 15%)
-    );
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    visibility: visible;
-
-    &.hide {
-      visibility: hidden;
-    }
-
-    &-search-bar,
-    &-sub-menu {
-      width: 95%;
-
-      margin: {
-        top: 5px;
-      }
-    }
-
-    &-sub-menu {
-      gap: 12px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-  }
-
-  &-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    font-family: "Fira Sans";
-    border-radius: 20px;
-    border: 0px;
-    color: $mainColorWhite;
-    background-color: $backgroundColor;
-    position: relative;
-
-    margin: {
-      left: 7px;
-      right: 7px;
-    }
-    width: 95px;
-    height: 125px;
-
-    > img {
-      padding-bottom: 10px;
-    }
-
-    &:hover {
-      background-color: $mediumBackgroundColor;
-      cursor: pointer;
-    }
-
-    > input[type="file"] {
-      display: none;
-    }
+    //Box model
+    margin-left: calc(-400px + 50px);
   }
 
   &-container {
+    //Position
     position: relative;
+
+    transition: all 0.2s ease-in;
+    //Box model
     height: 100%;
     width: 100%;
+    border-radius: 10px;
+  }
+}
+
+.side-menu-container.hide {
+  opacity: 0;
+  visibility: hidden;
+  > .side-menu-panel {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.side-menu-nav {
+  //Layout
+  grid-template: {
+    columns: repeat(5, 25%);
+  }
+
+  //Display
+  display: grid;
+  align-items: start;
+
+  //Animation
+  transition: all 0.2s ease-in;
+
+  //Box model
+  padding: 6px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+
+  //Background
+  background-color: $mediumBackgroundColor;
+
+  //Pseudo
+  &.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  > li {
+    //Sass
+    @include center-flex();
+
+    //Layout
+    align-items: start;
+
+    //Box model
+    margin: 0 4px 0 4px;
+    height: 100%;
+
+    //Pseudo
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+.side-menu-nav-button {
+  //Sass
+  @include center-flex();
+  @include prevent-select();
+
+  //Animation
+  transition: background-color 0.2s ease-in-out;
+
+  //Box model
+  border: none;
+  border-radius: 10px;
+
+  width: 100%;
+  height: 2em;
+
+  //Background
+  background-color: $lighterBackgroundColor;
+  cursor: pointer;
+
+  //Pseudo
+  &.selected {
+    background-color: $mainColor;
+  }
+}
+
+.side-menu-panel {
+  //Position
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  //Layout
+  align-items: center;
+  flex-direction: column;
+
+  //Display
+  display: flex;
+  visibility: visible;
+
+  //Box model
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+
+  //Background
+  background: linear-gradient(
+    $lightBackgroundColor,
+    color.adjust($lightBackgroundColor, $lightness: 15%)
+  );
+
+  //Pseudo
+  &.hide {
+    //Display
+    visibility: hidden;
+  }
+
+  &-search-bar,
+  &-sub-menu {
+    //Box model
+    margin-top: 5px;
+    width: 95%;
+  }
+
+  &-sub-menu {
+    //Sass
+    @include center-flex;
+
+    //Layout
+    flex-direction: row;
+    gap: 12px;
+  }
+}
+
+.side-menu-button {
+  //Sass
+  @include center-flex;
+
+  //Layout
+  flex-direction: column;
+
+  //Position
+  position: relative;
+
+  //Box model
+  margin: 0 7px;
+  width: 95px;
+  height: 125px;
+
+  border: none;
+  border-radius: 20px;
+
+  //Background
+  background-color: $backgroundColor;
+
+  //Typo
+  font: {
+    size: 1.5em;
+    family: "Fira Sans";
+  }
+  color: $mainColorWhite;
+
+  //Pseudo
+  > img {
+    padding-bottom: 10px;
+  }
+
+  &:hover {
+    background-color: $mediumBackgroundColor;
+    cursor: pointer;
+  }
+
+  > input[type="file"] {
+    display: none;
+  }
+}
+
+.side-menu-hide {
+  display: flex;
+  flex-direction: row-reverse;
+
+  > button {
+    margin: 10px 0px 10px 10px;
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: gray;
   }
 }

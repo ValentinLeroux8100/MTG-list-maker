@@ -15,17 +15,16 @@ const PanelDataAction = {
   ...PanelCardList.DataManagement,
 };
 
-function Panel({ id, index, type, data }) {
+function Panel({ id, index, type, data, ...props }) {
   const titleRef = useRef();
 
   useEffect(() => {
-    console.log((titleRef.current.value = data.title));
-  }, []);
+    titleRef.current.value = data.title;
+  }, [data.title]);
 
   const isTypeExist =
     Object.keys(PanelInfo).find((element) => element == type) != undefined;
   const SpecificPanel = isTypeExist ? PanelInfo[type].content : "";
-
   return (
     <>
       {isTypeExist && (
@@ -34,7 +33,8 @@ function Panel({ id, index, type, data }) {
             <div
               {...provider.draggableProps}
               ref={provider.innerRef}
-              className="panel"
+              className={"panel " + (index == 0 ? "first" : "")}
+              {...props}
             >
               <header className="panel-header">
                 <div

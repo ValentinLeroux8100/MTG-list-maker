@@ -1,35 +1,39 @@
 @use "Style/Abstract/abstract.scss" as *;
 
 .search-bar {
-  height: min-content;
-  width: inherit;
-  padding: {
-    left: 16px;
-    right: 16px;
-    top: 10px;
-    bottom: 10px;
-  }
-
-  display: grid;
-
-  grid-template: {
-    columns: auto min-content;
-  }
-
+  //Layout
+  grid-template-columns: auto min-content;
   align-items: center;
 
+  //Display
+  display: grid;
+
+  //Box model
+  border: solid 1px #000;
+  border-radius: 25px;
+
+  height: min-content;
+  width: inherit;
+
+  padding: 10px 16px;
+
+  //Background
   background-color: $backgroundColor;
 
-  border: {
-    style: solid;
-    width: 1px;
-    color: #000;
-    radius: 25px;
+  //Pseudo
+  &:has(> input:focus) {
+    outline: 2px $mainColor solid;
   }
 
   > input {
+    //Box model
+    width: inherit;
+    border: none;
+
+    //Background
     background-color: #0000;
-    border: 0px;
+
+    //Typo
     color: $whiteColor;
 
     font: {
@@ -37,18 +41,20 @@
       size: 1.2em;
     }
 
+    //Pseudo
     &:focus {
       outline: none;
     }
 
     &::placeholder {
-      color: $placeholderColor;
       @include prevent-select();
+      color: $placeholderColor;
     }
   }
+}
 
-  > img {
-    height: 20px;
-    margin-left: 5px;
-  }
+.search-icon {
+  //Box model
+  margin-left: 5px;
+  height: 20px;
 }

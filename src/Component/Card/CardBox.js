@@ -1,7 +1,8 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
-import ManaCost from "Component/ManaCost";
+import Mana from "Component/Mana/Mana";
 import cardNumberBackground from "Graphics/Card Number Background.svg";
+import "./CardBox.scss";
 
 const CardBox = forwardRef(function CardBox(
   { card, count, isDisplayCount, manaCost },
@@ -19,13 +20,13 @@ const CardBox = forwardRef(function CardBox(
           <div className="card-number-text">{count}x</div>
         </div>
       )}{" "}
-      <div className="card-back">
-        <div className="card-mid">
-          <div className="card-top">
+      <div className="card-back card-box">
+        <div className="card-mid card-box">
+          <div className="card-top card-box">
             <div ref={titleRef} className="card-title">
               <div className="card-title-content">{card.info.name}</div>
             </div>
-            <ManaCost cost={manaCost} />
+            <Mana cost={manaCost} />
           </div>
         </div>
       </div>
